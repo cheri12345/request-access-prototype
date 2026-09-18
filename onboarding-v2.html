@@ -155,23 +155,25 @@
       .phase-item {
         display: flex;
         align-items: flex-start;
-        gap: 20px;
-        padding: 28px 0;
-        border-bottom: 1px solid hsl(var(--border));
+        gap: 16px;
+        padding: 22px 0;
       }
 
       .phase-item:first-child {
         padding-top: 0;
       }
 
-      .phase-num {
-        font-family: "Archivo", system-ui, sans-serif;
-        font-weight: 700;
-        font-size: 1rem;
+      .phase-item + .phase-item {
+        border-top: 1px solid hsl(var(--border));
+      }
+
+      .phase-eyebrow {
+        font-size: 0.75rem;
+        font-weight: 600;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
         color: hsl(var(--stone));
-        width: 20px;
-        flex-shrink: 0;
-        padding-top: 3px;
+        margin: 0 0 4px;
       }
 
       .phase-text h3 {
@@ -189,20 +191,19 @@
       }
 
       .phase-icon {
-        width: 52px;
-        height: 52px;
-        border-radius: 12px;
+        width: 40px;
+        height: 40px;
+        border-radius: 999px;
         background: hsl(var(--teal) / 0.15);
         display: flex;
         align-items: center;
         justify-content: center;
         flex-shrink: 0;
-        margin-left: auto;
       }
 
       .phase-icon svg {
-        width: 24px;
-        height: 24px;
+        width: 18px;
+        height: 18px;
         stroke: #0f766e;
       }
 
@@ -603,7 +604,7 @@
       .progress-seg-fill {
         height: 100%;
         width: 0%;
-        background: hsl(var(--ink));
+        background: hsl(var(--teal));
         transition: width 0.3s ease;
       }
 
@@ -628,13 +629,13 @@
       }
 
       .btn-next {
-        background: hsl(var(--ink));
-        color: hsl(var(--paper));
+        background: hsl(var(--teal));
+        color: hsl(var(--ink));
         font-family: inherit;
         font-size: 0.9375rem;
         font-weight: 600;
         border: none;
-        border-radius: 8px;
+        border-radius: 6px;
         padding: 12px 26px;
         cursor: pointer;
       }
@@ -701,7 +702,7 @@
       .next-step-card .icon {
         width: 36px;
         height: 36px;
-        border-radius: 8px;
+        border-radius: 999px;
         background: hsl(var(--teal) / 0.15);
         display: flex;
         align-items: center;
@@ -761,34 +762,34 @@
             </div>
             <div class="phase-list">
               <div class="phase-item">
-                <span class="phase-num">1</span>
-                <div class="phase-text">
-                  <h3>Tell us about your organization</h3>
-                  <p>Entity type, location, and what you're looking to fund.</p>
-                </div>
                 <span class="phase-icon">
                   <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18"></path><path d="M5 21V7l7-4 7 4v14"></path><path d="M9 9h1M14 9h1M9 13h1M14 13h1M9 17h1M14 17h1"></path></svg>
                 </span>
+                <div class="phase-text">
+                  <p class="phase-eyebrow">Phase 1</p>
+                  <h3>Tell us about your organization</h3>
+                  <p>Entity type, location, and what you're looking to fund.</p>
+                </div>
               </div>
               <div class="phase-item">
-                <span class="phase-num">2</span>
-                <div class="phase-text">
-                  <h3>Show your financial readiness</h3>
-                  <p>The eligibility signals programs screen for: cash on hand, coverage ratio, prior awards.</p>
-                </div>
                 <span class="phase-icon">
                   <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="20" x2="12" y2="10"></line><line x1="18" y1="20" x2="18" y2="4"></line><line x1="6" y1="20" x2="6" y2="16"></line></svg>
                 </span>
+                <div class="phase-text">
+                  <p class="phase-eyebrow">Phase 2</p>
+                  <h3>Show your financial readiness</h3>
+                  <p>The eligibility signals programs screen for: cash on hand, coverage ratio, prior awards.</p>
+                </div>
               </div>
               <div class="phase-item">
-                <span class="phase-num">3</span>
-                <div class="phase-text">
-                  <h3>Upload documents &amp; submit</h3>
-                  <p>Attach supporting financials, review everything, then send your request.</p>
-                </div>
                 <span class="phase-icon">
                   <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
                 </span>
+                <div class="phase-text">
+                  <p class="phase-eyebrow">Phase 3</p>
+                  <h3>Upload documents &amp; submit</h3>
+                  <p>Attach supporting financials, review everything, then send your request.</p>
+                </div>
               </div>
             </div>
           </div>
