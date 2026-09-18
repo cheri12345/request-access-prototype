@@ -1085,7 +1085,6 @@
           });
           renderStepper();
           renderCondensed();
-          document.getElementById("backBtn").style.visibility = n === 1 ? "hidden" : "visible";
           document.getElementById("nextBtnLabel").textContent = n === 5 ? "Submit request" : "Continue";
           if (n === 5) renderReview();
           window.scrollTo({ top: 0, behavior: "smooth" });
@@ -1093,6 +1092,7 @@
 
         document.getElementById("backBtn").addEventListener("click", function () {
           if (current > 1) goTo(current - 1);
+          else window.location.href = "index.html";
         });
 
         document.getElementById("nextBtn").addEventListener("click", function () {
@@ -1117,7 +1117,6 @@
 
         renderStepper();
         renderCondensed();
-        document.getElementById("backBtn").style.visibility = "hidden";
       })();
     </script>
   </body>
