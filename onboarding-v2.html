@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Onboarding v2 — CHELCIE Prototype</title>
+    <title>Onboarding v2 | CHELCIE Prototype</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -129,14 +129,22 @@
       }
 
       .intro-headline {
-        font-size: 2.5rem;
-        line-height: 1.08;
+        font-size: 1.75rem;
+        line-height: 1.15;
       }
 
       @media (min-width: 860px) {
         .intro-headline {
-          font-size: 3.5rem;
+          font-size: 2.25rem;
         }
+      }
+
+      .intro-time-estimate {
+        font-family: "Inter", system-ui, sans-serif;
+        font-size: 0.9375rem;
+        font-weight: 400;
+        color: hsl(var(--stone));
+        margin: 12px 0 0;
       }
 
       .phase-list {
@@ -747,13 +755,16 @@
       <section class="screen active" id="screen-intro">
         <div style="display: flex; flex-direction: column; flex: 1; width: 100%;">
           <div class="intro-body">
-            <h1 class="intro-headline">It's easy to get set up with CHELCIE</h1>
+            <div>
+              <h1 class="intro-headline">Let's get you verified.</h1>
+              <p class="intro-time-estimate">About 7 minutes to complete.</p>
+            </div>
             <div class="phase-list">
               <div class="phase-item">
                 <span class="phase-num">1</span>
                 <div class="phase-text">
                   <h3>Tell us about your organization</h3>
-                  <p>Share the basics — entity type, location, and what you're looking to fund.</p>
+                  <p>Entity type, location, and what you're looking to fund.</p>
                 </div>
                 <span class="phase-icon">
                   <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18"></path><path d="M5 21V7l7-4 7 4v14"></path><path d="M9 9h1M14 9h1M9 13h1M14 13h1M9 17h1M14 17h1"></path></svg>
@@ -763,7 +774,7 @@
                 <span class="phase-num">2</span>
                 <div class="phase-text">
                   <h3>Show your financial readiness</h3>
-                  <p>A few common eligibility signals — cash on hand, coverage ratio, prior awards.</p>
+                  <p>The eligibility signals programs screen for: cash on hand, coverage ratio, prior awards.</p>
                 </div>
                 <span class="phase-icon">
                   <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="20" x2="12" y2="10"></line><line x1="18" y1="20" x2="18" y2="4"></line><line x1="6" y1="20" x2="6" y2="16"></line></svg>
@@ -905,7 +916,7 @@
           <div>
             <p class="transition-eyebrow">Phase 2 of 3</p>
             <h2 class="transition-headline">Show your financial readiness</h2>
-            <p class="transition-desc">These are common thresholds programs screen for. Estimates are fine for now — you can refine them later.</p>
+            <p class="transition-desc">These are common thresholds programs screen for. Estimates are fine for now. You can refine them later.</p>
           </div>
           <div class="transition-art">
             <svg viewBox="0 0 24 24" fill="none" stroke="#6ecfad" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="20" x2="12" y2="10"></line><line x1="18" y1="20" x2="18" y2="4"></line><line x1="6" y1="20" x2="6" y2="16"></line></svg>
@@ -1003,7 +1014,7 @@
           </div>
 
           <div class="file-list" id="fileList"></div>
-          <button type="button" class="skip-link" id="skipUpload">Skip for now — you can add documents later</button>
+          <button type="button" class="skip-link" id="skipUpload">Skip for now. You can add documents later.</button>
         </div>
       </section>
 
