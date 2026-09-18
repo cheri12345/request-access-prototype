@@ -61,7 +61,7 @@
 
       @media (min-width: 860px) {
         .layout {
-          grid-template-columns: 1fr 1fr;
+          grid-template-columns: 40fr 60fr;
         }
       }
 
@@ -77,10 +77,7 @@
 
       @media (min-width: 860px) {
         .panel-left {
-          padding: 72px 88px;
-          position: sticky;
-          top: 0;
-          height: 100vh;
+          padding: 40px 56px;
         }
       }
 
@@ -204,7 +201,7 @@
 
       @media (min-width: 860px) {
         .panel-right {
-          padding: 72px 88px;
+          padding: 20px 64px;
         }
       }
 
@@ -435,6 +432,55 @@
 
       #form-view.hide {
         display: none;
+      }
+
+      /* Compact vertical rhythm on desktop so the form fits one viewport without scrolling. */
+      @media (min-width: 860px) {
+        .field-group {
+          margin-bottom: 12px;
+        }
+
+        label,
+        .label {
+          margin-bottom: 4px;
+        }
+
+        .row {
+          gap: 12px;
+          margin-bottom: 12px;
+        }
+
+        .rule {
+          margin-bottom: 12px;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        select,
+        textarea {
+          padding: 9px 14px;
+        }
+
+        select {
+          padding-right: 40px;
+        }
+
+        .side-option {
+          padding: 10px 14px;
+        }
+
+        textarea {
+          min-height: 44px;
+        }
+
+        .submit-btn {
+          padding: 9px 20px;
+        }
+
+        .fine-print {
+          margin-top: 8px;
+          font-size: 0.75rem;
+        }
       }
     </style>
   </head>
