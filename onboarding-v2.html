@@ -1,0 +1,1301 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Onboarding v2 — CHELCIE Prototype</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --ink: 240 4% 4%;
+        --paper: 60 20% 98%;
+        --teal: 159 50% 62%;
+        --stone: 42 4% 41%;
+        --border: 43 20% 88%;
+        --destructive: 15 62% 47%;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html,
+      body {
+        margin: 0;
+        min-height: 100vh;
+      }
+
+      body {
+        background: hsl(var(--paper));
+        color: hsl(var(--ink));
+        font-family: "Inter", system-ui, sans-serif;
+        font-size: 1rem;
+        line-height: 1.5;
+        -webkit-font-smoothing: antialiased;
+      }
+
+      a {
+        color: inherit;
+      }
+
+      h1,
+      h2 {
+        font-family: "Archivo", system-ui, sans-serif;
+        font-weight: 800;
+        letter-spacing: -0.02em;
+        margin: 0;
+      }
+
+      .topbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 24px 40px;
+      }
+
+      .wordmark {
+        display: inline-flex;
+        align-items: center;
+        font-size: 1.1rem;
+        font-weight: 700;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: hsl(var(--ink));
+        text-decoration: none;
+      }
+
+      .wordmark sup {
+        font-size: 0.55em;
+        font-weight: 400;
+        margin-left: 2px;
+      }
+
+      .pill-link {
+        border: 1px solid hsl(var(--border));
+        border-radius: 999px;
+        padding: 9px 20px;
+        font-size: 0.875rem;
+        font-weight: 500;
+        text-decoration: none;
+        color: hsl(var(--ink));
+        background: hsl(var(--paper));
+      }
+
+      .pill-link:hover {
+        border-color: hsl(var(--ink) / 0.4);
+      }
+
+      main {
+        min-height: calc(100vh - 88px);
+        display: flex;
+        flex-direction: column;
+      }
+
+      .screen {
+        display: none;
+        flex: 1;
+      }
+
+      .screen.active {
+        display: flex;
+      }
+
+      /* ── INTRO ── */
+      #screen-intro.active {
+        flex-direction: column;
+      }
+
+      .intro-body {
+        flex: 1;
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 48px;
+        padding: 40px 40px 20px;
+        max-width: 1200px;
+        margin: 0 auto;
+        width: 100%;
+      }
+
+      @media (min-width: 860px) {
+        .intro-body {
+          grid-template-columns: 1fr 1fr;
+          padding-top: 100px;
+        }
+      }
+
+      .intro-headline {
+        font-size: 2.5rem;
+        line-height: 1.08;
+      }
+
+      @media (min-width: 860px) {
+        .intro-headline {
+          font-size: 3.5rem;
+        }
+      }
+
+      .phase-list {
+        display: flex;
+        flex-direction: column;
+      }
+
+      .phase-item {
+        display: flex;
+        align-items: flex-start;
+        gap: 20px;
+        padding: 28px 0;
+        border-bottom: 1px solid hsl(var(--border));
+      }
+
+      .phase-item:first-child {
+        padding-top: 0;
+      }
+
+      .phase-num {
+        font-family: "Archivo", system-ui, sans-serif;
+        font-weight: 700;
+        font-size: 1rem;
+        color: hsl(var(--stone));
+        width: 20px;
+        flex-shrink: 0;
+        padding-top: 3px;
+      }
+
+      .phase-text h3 {
+        font-family: "Inter", system-ui, sans-serif;
+        font-size: 1.0625rem;
+        font-weight: 700;
+        margin: 0 0 6px;
+      }
+
+      .phase-text p {
+        font-size: 0.9375rem;
+        color: hsl(var(--stone));
+        margin: 0;
+        max-width: 42ch;
+      }
+
+      .phase-icon {
+        width: 52px;
+        height: 52px;
+        border-radius: 12px;
+        background: hsl(var(--teal) / 0.15);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+        margin-left: auto;
+      }
+
+      .phase-icon svg {
+        width: 24px;
+        height: 24px;
+        stroke: #0f766e;
+      }
+
+      .intro-footer {
+        border-top: 1px solid hsl(var(--border));
+        padding: 20px 40px;
+        display: flex;
+        justify-content: flex-end;
+      }
+
+      /* ── TRANSITION SCREENS ── */
+      .transition-body {
+        flex: 1;
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 40px;
+        align-items: center;
+        padding: 40px 40px 110px;
+        max-width: 1100px;
+        margin: 0 auto;
+        width: 100%;
+      }
+
+      @media (min-width: 860px) {
+        .transition-body {
+          grid-template-columns: 1fr 1fr;
+        }
+      }
+
+      .transition-eyebrow {
+        font-size: 0.875rem;
+        font-weight: 600;
+        color: hsl(var(--stone));
+        margin: 0 0 16px;
+      }
+
+      .transition-headline {
+        font-size: 2.25rem;
+        line-height: 1.1;
+        margin-bottom: 20px;
+      }
+
+      @media (min-width: 860px) {
+        .transition-headline {
+          font-size: 2.75rem;
+        }
+      }
+
+      .transition-desc {
+        font-size: 1rem;
+        color: hsl(var(--stone));
+        max-width: 42ch;
+      }
+
+      .transition-art {
+        aspect-ratio: 1.2 / 1;
+        border-radius: 16px;
+        background: linear-gradient(135deg, hsl(var(--ink)) 0%, #0f2a26 100%);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .transition-art svg {
+        width: 45%;
+        height: 45%;
+        position: relative;
+        z-index: 1;
+      }
+
+      .transition-art::before {
+        content: "";
+        position: absolute;
+        width: 220px;
+        height: 220px;
+        border-radius: 999px;
+        background: hsl(var(--teal) / 0.35);
+        filter: blur(50px);
+        top: -40px;
+        left: -40px;
+      }
+
+      /* ── DATA SCREENS ── */
+      .data-body {
+        flex: 1;
+        max-width: 640px;
+        margin: 0 auto;
+        width: 100%;
+        padding: 48px 40px 110px;
+      }
+
+      .data-eyebrow {
+        font-size: 0.875rem;
+        font-weight: 600;
+        color: hsl(var(--stone));
+        margin: 0 0 8px;
+      }
+
+      .data-title {
+        font-size: 1.75rem;
+        margin-bottom: 28px;
+      }
+
+      .field-group {
+        margin-bottom: 26px;
+      }
+
+      label,
+      .label {
+        display: block;
+        font-size: 0.875rem;
+        font-weight: 500;
+        margin-bottom: 8px;
+      }
+
+      select,
+      input[type="text"] {
+        width: 100%;
+        font-family: inherit;
+        font-size: 0.9375rem;
+        color: hsl(var(--ink));
+        background: hsl(var(--paper));
+        border: 1px solid hsl(var(--border));
+        border-radius: 6px;
+        padding: 12px 14px;
+        outline: none;
+      }
+
+      select:focus,
+      input:focus {
+        border-color: hsl(var(--teal));
+        box-shadow: 0 0 0 2px hsl(var(--teal) / 0.25);
+      }
+
+      select {
+        appearance: none;
+        -webkit-appearance: none;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23707070' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+        background-repeat: no-repeat;
+        background-position: right 14px center;
+        padding-right: 40px;
+      }
+
+      .row-2 {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 26px;
+      }
+
+      @media (min-width: 480px) {
+        .row-2 {
+          grid-template-columns: 1fr 1fr;
+        }
+      }
+
+      .row-2 .field-group {
+        margin-bottom: 0;
+      }
+
+      .slider-head {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        margin-bottom: 8px;
+      }
+
+      .slider-value {
+        font-size: 0.9375rem;
+        font-weight: 600;
+      }
+
+      input[type="range"] {
+        width: 100%;
+        appearance: none;
+        -webkit-appearance: none;
+        height: 4px;
+        border-radius: 999px;
+        background: hsl(var(--border));
+        outline: none;
+      }
+
+      input[type="range"]::-webkit-slider-thumb {
+        appearance: none;
+        -webkit-appearance: none;
+        width: 18px;
+        height: 18px;
+        border-radius: 999px;
+        background: hsl(var(--ink));
+        cursor: pointer;
+        border: 3px solid hsl(var(--paper));
+        box-shadow: 0 0 0 1px hsl(var(--ink));
+      }
+
+      input[type="range"]::-moz-range-thumb {
+        width: 18px;
+        height: 18px;
+        border-radius: 999px;
+        background: hsl(var(--ink));
+        cursor: pointer;
+        border: 3px solid hsl(var(--paper));
+        box-shadow: 0 0 0 1px hsl(var(--ink));
+      }
+
+      .toggle-pair {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+        max-width: 280px;
+      }
+
+      .toggle-btn {
+        border: 1px solid hsl(var(--border));
+        background: hsl(var(--paper));
+        border-radius: 6px;
+        padding: 10px 14px;
+        font-family: inherit;
+        font-size: 0.875rem;
+        font-weight: 600;
+        cursor: pointer;
+      }
+
+      .toggle-btn.selected {
+        border-color: hsl(var(--teal));
+        background: hsl(var(--teal) / 0.12);
+      }
+
+      .pill-group {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+      }
+
+      .pill {
+        border: 1px solid hsl(var(--border));
+        background: hsl(var(--paper));
+        border-radius: 999px;
+        padding: 8px 16px;
+        font-family: inherit;
+        font-size: 0.8125rem;
+        font-weight: 500;
+        cursor: pointer;
+      }
+
+      .pill.selected {
+        border-color: hsl(var(--teal));
+        background: hsl(var(--teal) / 0.15);
+        font-weight: 600;
+      }
+
+      .dropzone {
+        border: 1.5px dashed hsl(var(--border));
+        border-radius: 10px;
+        padding: 32px 20px;
+        text-align: center;
+        cursor: pointer;
+      }
+
+      .dropzone.dragover {
+        border-color: hsl(var(--teal));
+        background: hsl(var(--teal) / 0.08);
+      }
+
+      .dropzone-title {
+        font-size: 0.9375rem;
+        font-weight: 600;
+        margin: 8px 0 4px;
+      }
+
+      .dropzone-desc {
+        font-size: 0.8125rem;
+        color: hsl(var(--stone));
+        max-width: 40ch;
+        margin: 0 auto;
+      }
+
+      .file-list {
+        margin-top: 16px;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+
+      .file-row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 10px;
+        border: 1px solid hsl(var(--border));
+        border-radius: 6px;
+        padding: 10px 12px;
+        font-size: 0.8125rem;
+      }
+
+      .file-remove {
+        background: none;
+        border: none;
+        color: hsl(var(--stone));
+        cursor: pointer;
+        font-size: 0.75rem;
+        text-decoration: underline;
+        font-family: inherit;
+      }
+
+      .skip-link {
+        display: inline-block;
+        margin-top: 16px;
+        font-size: 0.8125rem;
+        color: hsl(var(--stone));
+        text-decoration: underline;
+        background: none;
+        border: none;
+        cursor: pointer;
+        font-family: inherit;
+        padding: 0;
+      }
+
+      .review-group {
+        border: 1px solid hsl(var(--border));
+        border-radius: 8px;
+        padding: 18px 20px;
+        margin-bottom: 16px;
+      }
+
+      .review-head {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 12px;
+      }
+
+      .review-head h3 {
+        font-size: 0.9375rem;
+        font-weight: 700;
+        margin: 0;
+      }
+
+      .review-edit {
+        font-size: 0.8125rem;
+        color: #0f766e;
+        text-decoration: underline;
+        background: none;
+        border: none;
+        cursor: pointer;
+        font-family: inherit;
+        padding: 0;
+      }
+
+      .review-row {
+        display: flex;
+        justify-content: space-between;
+        gap: 16px;
+        font-size: 0.8125rem;
+        padding: 6px 0;
+        border-top: 1px solid hsl(var(--border) / 0.6);
+      }
+
+      .review-row:first-of-type {
+        border-top: none;
+      }
+
+      .review-row dt {
+        color: hsl(var(--stone));
+      }
+
+      .review-row dd {
+        margin: 0;
+        text-align: right;
+        font-weight: 500;
+      }
+
+      /* ── FOOTER NAV (segmented progress) ── */
+      .footer-nav {
+        position: fixed;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: hsl(var(--paper) / 0.95);
+        backdrop-filter: blur(6px);
+        border-top: 1px solid hsl(var(--border));
+        z-index: 10;
+      }
+
+      .progress-track {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 6px;
+        height: 4px;
+      }
+
+      .progress-seg {
+        background: hsl(var(--border));
+        border-radius: 999px;
+        overflow: hidden;
+      }
+
+      .progress-seg-fill {
+        height: 100%;
+        width: 0%;
+        background: hsl(var(--ink));
+        transition: width 0.3s ease;
+      }
+
+      .footer-nav-inner {
+        max-width: 1100px;
+        margin: 0 auto;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 18px 40px;
+      }
+
+      .back-link {
+        background: none;
+        border: none;
+        font-family: inherit;
+        font-size: 0.9375rem;
+        text-decoration: underline;
+        cursor: pointer;
+        color: hsl(var(--ink));
+        visibility: hidden;
+      }
+
+      .btn-next {
+        background: hsl(var(--ink));
+        color: hsl(var(--paper));
+        font-family: inherit;
+        font-size: 0.9375rem;
+        font-weight: 600;
+        border: none;
+        border-radius: 8px;
+        padding: 12px 26px;
+        cursor: pointer;
+      }
+
+      .btn-next:hover {
+        opacity: 0.88;
+      }
+
+      .btn-next[disabled] {
+        opacity: 0.5;
+        cursor: not-allowed;
+      }
+
+      .btn-get-started {
+        background: hsl(var(--teal));
+        color: hsl(var(--ink));
+        font-family: inherit;
+        font-size: 0.9375rem;
+        font-weight: 700;
+        border: none;
+        border-radius: 999px;
+        padding: 14px 28px;
+        cursor: pointer;
+      }
+
+      /* ── SUCCESS / WELCOME ── */
+      #screen-success .success-wrap {
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 60px 40px;
+        width: 100%;
+      }
+
+      .welcome-title {
+        font-size: 2rem;
+        margin-bottom: 8px;
+      }
+
+      .welcome-sub {
+        font-size: 1rem;
+        color: hsl(var(--stone));
+        margin: 0 0 32px;
+      }
+
+      .next-steps-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 16px;
+        margin-top: 40px;
+      }
+
+      @media (min-width: 700px) {
+        .next-steps-grid {
+          grid-template-columns: repeat(3, 1fr);
+        }
+      }
+
+      .next-step-card {
+        border: 1px solid hsl(var(--border));
+        border-radius: 10px;
+        padding: 20px;
+      }
+
+      .next-step-card .icon {
+        width: 36px;
+        height: 36px;
+        border-radius: 8px;
+        background: hsl(var(--teal) / 0.15);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 14px;
+      }
+
+      .next-step-card .icon svg {
+        width: 18px;
+        height: 18px;
+        stroke: #0f766e;
+      }
+
+      .next-step-card h4 {
+        font-size: 0.9375rem;
+        margin: 0 0 4px;
+      }
+
+      .next-step-card p {
+        font-size: 0.8125rem;
+        color: hsl(var(--stone));
+        margin: 0;
+      }
+
+      .status-banner {
+        border: 1px solid hsl(var(--border));
+        border-radius: 10px;
+        padding: 18px 20px;
+        display: flex;
+        align-items: center;
+        gap: 14px;
+      }
+
+      .status-banner .dot {
+        width: 10px;
+        height: 10px;
+        border-radius: 999px;
+        background: hsl(var(--teal));
+        flex-shrink: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="topbar">
+      <a class="wordmark" href="index.html">CHELCIE<sup>™</sup></a>
+      <a class="pill-link" href="index.html">Exit</a>
+    </div>
+
+    <main>
+      <!-- INTRO -->
+      <section class="screen active" id="screen-intro">
+        <div style="display: flex; flex-direction: column; flex: 1; width: 100%;">
+          <div class="intro-body">
+            <h1 class="intro-headline">It's easy to get set up with CHELCIE</h1>
+            <div class="phase-list">
+              <div class="phase-item">
+                <span class="phase-num">1</span>
+                <div class="phase-text">
+                  <h3>Tell us about your organization</h3>
+                  <p>Share the basics — entity type, location, and what you're looking to fund.</p>
+                </div>
+                <span class="phase-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18"></path><path d="M5 21V7l7-4 7 4v14"></path><path d="M9 9h1M14 9h1M9 13h1M14 13h1M9 17h1M14 17h1"></path></svg>
+                </span>
+              </div>
+              <div class="phase-item">
+                <span class="phase-num">2</span>
+                <div class="phase-text">
+                  <h3>Show your financial readiness</h3>
+                  <p>A few common eligibility signals — cash on hand, coverage ratio, prior awards.</p>
+                </div>
+                <span class="phase-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="20" x2="12" y2="10"></line><line x1="18" y1="20" x2="18" y2="4"></line><line x1="6" y1="20" x2="6" y2="16"></line></svg>
+                </span>
+              </div>
+              <div class="phase-item">
+                <span class="phase-num">3</span>
+                <div class="phase-text">
+                  <h3>Upload documents &amp; submit</h3>
+                  <p>Attach supporting financials, review everything, then send your request.</p>
+                </div>
+                <span class="phase-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
+                </span>
+              </div>
+            </div>
+          </div>
+          <div class="intro-footer">
+            <button type="button" class="btn-get-started" id="getStartedBtn">Get started</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- PHASE 1 TRANSITION -->
+      <section class="screen" data-screen="t1">
+        <div class="transition-body">
+          <div>
+            <p class="transition-eyebrow">Phase 1 of 3</p>
+            <h2 class="transition-headline">Tell us about your organization</h2>
+            <p class="transition-desc">You'll share your entity type, location, and what you're looking to fund. Takes about two minutes.</p>
+          </div>
+          <div class="transition-art">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#6ecfad" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18"></path><path d="M5 21V7l7-4 7 4v14"></path><path d="M9 9h1M14 9h1M9 13h1M14 13h1M9 17h1M14 17h1"></path></svg>
+          </div>
+        </div>
+      </section>
+
+      <!-- DATA: ORG PROFILE -->
+      <section class="screen" data-screen="d1">
+        <div class="data-body">
+          <p class="data-eyebrow">Step 1 of 5</p>
+          <h2 class="data-title">Your organization</h2>
+
+          <div class="field-group">
+            <label for="entityType">Entity type</label>
+            <select id="entityType">
+              <option value="" disabled selected>Select entity type</option>
+              <option value="nonprofit">501(c)(3) nonprofit</option>
+              <option value="forProfit">For-profit corporation</option>
+              <option value="government">Unit of local or state government</option>
+              <option value="tribal">Tribal entity</option>
+              <option value="solePro">Sole proprietor / single member</option>
+              <option value="hospital">Hospital or health system</option>
+            </select>
+          </div>
+
+          <div class="row-2">
+            <div class="field-group">
+              <label for="stateSelect">Primary state</label>
+              <select id="stateSelect"></select>
+            </div>
+            <div class="field-group">
+              <div class="slider-head">
+                <label for="yearsOperating" style="margin-bottom: 0">Years operating</label>
+                <span class="slider-value" id="yearsOperating-value">6 yrs</span>
+              </div>
+              <input type="range" id="yearsOperating" min="0" max="40" value="6" />
+            </div>
+          </div>
+
+          <div class="field-group">
+            <div class="slider-head">
+              <label for="employees" style="margin-bottom: 0">Employees</label>
+              <span class="slider-value" id="employees-value">45</span>
+            </div>
+            <input type="range" id="employees" min="1" max="2500" value="45" />
+          </div>
+        </div>
+      </section>
+
+      <!-- DATA: FUNDING NEED -->
+      <section class="screen" data-screen="d2">
+        <div class="data-body">
+          <p class="data-eyebrow">Step 2 of 5</p>
+          <h2 class="data-title">What are you looking to fund?</h2>
+
+          <div class="field-group">
+            <label for="purpose">Capital purpose</label>
+            <select id="purpose">
+              <option value="" disabled selected>Select purpose</option>
+              <option value="workingCapital">Working capital</option>
+              <option value="facility">Facility</option>
+              <option value="equipment">Equipment</option>
+              <option value="program">Program</option>
+              <option value="hiring">Hiring</option>
+            </select>
+          </div>
+
+          <div class="field-group">
+            <div class="slider-head">
+              <label for="capitalNeed" style="margin-bottom: 0">Capital need</label>
+              <span class="slider-value" id="capitalNeed-value">$2,500,000</span>
+            </div>
+            <input type="range" id="capitalNeed" min="50000" max="40000000" step="50000" value="2500000" />
+          </div>
+
+          <div class="field-group">
+            <div class="slider-head">
+              <label for="annualRevenue" style="margin-bottom: 0">Annual revenue</label>
+              <span class="slider-value" id="annualRevenue-value">$8,000,000</span>
+            </div>
+            <input type="range" id="annualRevenue" min="250000" max="300000000" step="250000" value="8000000" />
+          </div>
+
+          <div class="field-group">
+            <span class="label">Rural service area</span>
+            <div class="toggle-pair" id="ruralToggle">
+              <button type="button" class="toggle-btn" data-value="yes">Yes</button>
+              <button type="button" class="toggle-btn selected" data-value="no">No</button>
+            </div>
+          </div>
+
+          <div class="field-group">
+            <span class="label">Populations served</span>
+            <div class="pill-group" id="populationsGroup">
+              <button type="button" class="pill" data-value="lowIncome">Low-income</button>
+              <button type="button" class="pill" data-value="rural">Rural</button>
+              <button type="button" class="pill" data-value="veterans">Veterans</button>
+              <button type="button" class="pill" data-value="children">Children</button>
+              <button type="button" class="pill" data-value="behavioral">Behavioral health</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- PHASE 2 TRANSITION -->
+      <section class="screen" data-screen="t2">
+        <div class="transition-body">
+          <div>
+            <p class="transition-eyebrow">Phase 2 of 3</p>
+            <h2 class="transition-headline">Show your financial readiness</h2>
+            <p class="transition-desc">These are common thresholds programs screen for. Estimates are fine for now — you can refine them later.</p>
+          </div>
+          <div class="transition-art">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#6ecfad" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="20" x2="12" y2="10"></line><line x1="18" y1="20" x2="18" y2="4"></line><line x1="6" y1="20" x2="6" y2="16"></line></svg>
+          </div>
+        </div>
+      </section>
+
+      <!-- DATA: FINANCIAL READINESS -->
+      <section class="screen" data-screen="d3">
+        <div class="data-body">
+          <p class="data-eyebrow">Step 3 of 5</p>
+          <h2 class="data-title">A few readiness signals</h2>
+
+          <div class="field-group">
+            <div class="slider-head">
+              <label for="daysCash" style="margin-bottom: 0">Days cash on hand</label>
+              <span class="slider-value" id="daysCash-value">47 days</span>
+            </div>
+            <input type="range" id="daysCash" min="0" max="240" value="47" />
+          </div>
+
+          <div class="field-group">
+            <div class="slider-head">
+              <label for="dscr" style="margin-bottom: 0">Debt service coverage</label>
+              <span class="slider-value" id="dscr-value">1.32&times;</span>
+            </div>
+            <input type="range" id="dscr" min="0" max="300" value="132" />
+          </div>
+
+          <div class="field-group">
+            <div class="slider-head">
+              <label for="matchPct" style="margin-bottom: 0">Documented non-federal match</label>
+              <span class="slider-value" id="matchPct-value">15%</span>
+            </div>
+            <input type="range" id="matchPct" min="0" max="50" value="15" />
+          </div>
+
+          <div class="field-group">
+            <div class="slider-head">
+              <label for="samMonths" style="margin-bottom: 0">SAM.gov active</label>
+              <span class="slider-value" id="samMonths-value">14 mo</span>
+            </div>
+            <input type="range" id="samMonths" min="0" max="36" value="14" />
+          </div>
+
+          <div class="row-2">
+            <div class="field-group">
+              <span class="label">Audited or reviewed financials</span>
+              <div class="toggle-pair" id="auditedToggle">
+                <button type="button" class="toggle-btn selected" data-value="yes">Yes</button>
+                <button type="button" class="toggle-btn" data-value="no">No</button>
+              </div>
+            </div>
+            <div class="field-group">
+              <span class="label">Active or prior public award</span>
+              <div class="toggle-pair" id="priorAwardToggle">
+                <button type="button" class="toggle-btn selected" data-value="yes">Yes</button>
+                <button type="button" class="toggle-btn" data-value="no">No</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- PHASE 3 TRANSITION -->
+      <section class="screen" data-screen="t3">
+        <div class="transition-body">
+          <div>
+            <p class="transition-eyebrow">Phase 3 of 3</p>
+            <h2 class="transition-headline">Upload documents &amp; submit</h2>
+            <p class="transition-desc">Attach supporting financials, review everything you've entered, then send your request.</p>
+          </div>
+          <div class="transition-art">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#6ecfad" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
+          </div>
+        </div>
+      </section>
+
+      <!-- DATA: DOCUMENTS -->
+      <section class="screen" data-screen="d4">
+        <div class="data-body">
+          <p class="data-eyebrow">Step 4 of 5</p>
+          <h2 class="data-title">Upload supporting documents</h2>
+          <p style="font-size: 0.9375rem; color: hsl(var(--stone)); margin: -16px 0 24px;">Financial statements, payer mix data, operational metrics, and relevant documentation. Multiple file formats supported.</p>
+
+          <div class="dropzone" id="dropzone">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#707070" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="margin: 0 auto; display: block;">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+              <polyline points="17 8 12 3 7 8"></polyline>
+              <line x1="12" y1="3" x2="12" y2="15"></line>
+            </svg>
+            <p class="dropzone-title">Drag and drop files, or click to browse</p>
+            <p class="dropzone-desc">PDF, DOC, XLS, CSV, or image files</p>
+            <input type="file" id="fileInput" multiple hidden />
+          </div>
+
+          <div class="file-list" id="fileList"></div>
+          <button type="button" class="skip-link" id="skipUpload">Skip for now — you can add documents later</button>
+        </div>
+      </section>
+
+      <!-- DATA: REVIEW -->
+      <section class="screen" data-screen="d5">
+        <div class="data-body">
+          <p class="data-eyebrow">Step 5 of 5</p>
+          <h2 class="data-title">Review your request</h2>
+          <div id="reviewContent"></div>
+          <p style="font-size: 0.8125rem; color: hsl(var(--stone)); margin-top: 24px;">By submitting, you agree to our <a href="index.html" style="text-decoration: underline;">privacy policy</a>. We'll never share your information.</p>
+        </div>
+      </section>
+
+      <!-- SUCCESS / WELCOME -->
+      <section class="screen" id="screen-success">
+        <div class="success-wrap">
+          <h2 class="welcome-title">Welcome, Jordan!</h2>
+          <p class="welcome-sub">Your request is in review. Here's how to get ready while you wait.</p>
+
+          <div class="status-banner">
+            <span class="dot"></span>
+            <div>
+              <strong style="font-size: 0.9375rem;">Request submitted</strong>
+              <p style="margin: 2px 0 0; font-size: 0.8125rem; color: hsl(var(--stone));">We review every request within one business day.</p>
+            </div>
+          </div>
+
+          <div class="next-steps-grid">
+            <div class="next-step-card">
+              <span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg></span>
+              <h4>Explore matched programs</h4>
+              <p>See which funding programs your profile is likely to fit while your request is reviewed.</p>
+            </div>
+            <div class="next-step-card">
+              <span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg></span>
+              <h4>Invite your finance team</h4>
+              <p>Add teammates so they can help complete documentation and track status.</p>
+            </div>
+            <div class="next-step-card">
+              <span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"></path><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path></svg></span>
+              <h4>Track your submission</h4>
+              <p>Check back any time to see the status of your request and add missing documents.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <div class="footer-nav" id="footerNav">
+      <div class="progress-track" id="progressTrack">
+        <div class="progress-seg"><div class="progress-seg-fill" id="seg1"></div></div>
+        <div class="progress-seg"><div class="progress-seg-fill" id="seg2"></div></div>
+        <div class="progress-seg"><div class="progress-seg-fill" id="seg3"></div></div>
+      </div>
+      <div class="footer-nav-inner">
+        <button type="button" class="back-link" id="backBtn">Back</button>
+        <button type="button" class="btn-next" id="nextBtn">Next</button>
+      </div>
+    </div>
+
+    <script>
+      (function () {
+        var ORDER = ["intro", "t1", "d1", "d2", "t2", "d3", "t3", "d4", "d5", "success"];
+        var PHASE_OF = { t1: 1, d1: 1, d2: 1, t2: 2, d3: 2, t3: 3, d4: 3, d5: 3 };
+        var PHASE_WEIGHT = { t1: 0.15, d1: 0.55, d2: 1, t2: 0.15, d3: 1, t3: 0.15, d4: 0.55, d5: 1 };
+        var idx = 0;
+        var files = [];
+
+        var US_STATES = [
+          "Alabama","Alaska","Arizona","Arkansas","California","Colorado","Connecticut","Delaware",
+          "District of Columbia","Florida","Georgia","Hawaii","Idaho","Illinois","Indiana","Iowa",
+          "Kansas","Kentucky","Louisiana","Maine","Maryland","Massachusetts","Michigan","Minnesota",
+          "Mississippi","Missouri","Montana","Nebraska","Nevada","New Hampshire","New Jersey","New Mexico",
+          "New York","North Carolina","North Dakota","Ohio","Oklahoma","Oregon","Pennsylvania","Rhode Island",
+          "South Carolina","South Dakota","Tennessee","Texas","Utah","Vermont","Virginia","Washington",
+          "West Virginia","Wisconsin","Wyoming"
+        ];
+        var stateSelect = document.getElementById("stateSelect");
+        US_STATES.forEach(function (s) {
+          var opt = document.createElement("option");
+          opt.value = s;
+          opt.textContent = s;
+          stateSelect.appendChild(opt);
+        });
+        stateSelect.value = "Kentucky";
+
+        ["entityType", "purpose"].forEach(function (id) {
+          document.getElementById(id).addEventListener("change", function () { this.style.borderColor = ""; });
+        });
+
+        function setupToggle(id) {
+          var el = document.getElementById(id);
+          el.querySelectorAll(".toggle-btn").forEach(function (btn) {
+            btn.addEventListener("click", function () {
+              el.querySelectorAll(".toggle-btn").forEach(function (b) { b.classList.remove("selected"); });
+              btn.classList.add("selected");
+            });
+          });
+        }
+        setupToggle("ruralToggle");
+        setupToggle("auditedToggle");
+        setupToggle("priorAwardToggle");
+
+        document.querySelectorAll("#populationsGroup .pill").forEach(function (pill) {
+          pill.addEventListener("click", function () { pill.classList.toggle("selected"); });
+        });
+
+        function fmtMoney(n) { return "$" + Number(n).toLocaleString("en-US"); }
+        function bindSlider(id, formatter) {
+          var input = document.getElementById(id);
+          var out = document.getElementById(id + "-value");
+          function update() { out.textContent = formatter(input.value); }
+          input.addEventListener("input", update);
+          update();
+        }
+        bindSlider("yearsOperating", function (v) { return v + " yrs"; });
+        bindSlider("employees", function (v) { return v; });
+        bindSlider("capitalNeed", fmtMoney);
+        bindSlider("annualRevenue", fmtMoney);
+        bindSlider("daysCash", function (v) { return v + " days"; });
+        bindSlider("dscr", function (v) { return (v / 100).toFixed(2) + "×"; });
+        bindSlider("matchPct", function (v) { return v + "%"; });
+        bindSlider("samMonths", function (v) { return v == 0 ? "Not registered" : v + " mo"; });
+
+        var dropzone = document.getElementById("dropzone");
+        var fileInput = document.getElementById("fileInput");
+        var fileListEl = document.getElementById("fileList");
+        function renderFiles() {
+          fileListEl.innerHTML = "";
+          files.forEach(function (f, i) {
+            var row = document.createElement("div");
+            row.className = "file-row";
+            row.innerHTML = '<span>' + f.name + "</span>" +
+              '<button type="button" class="file-remove" data-i="' + i + '">Remove</button>';
+            fileListEl.appendChild(row);
+          });
+          fileListEl.querySelectorAll(".file-remove").forEach(function (btn) {
+            btn.addEventListener("click", function () {
+              files.splice(Number(btn.getAttribute("data-i")), 1);
+              renderFiles();
+            });
+          });
+        }
+        function addFiles(fileArr) {
+          Array.prototype.forEach.call(fileArr, function (f) { files.push(f); });
+          renderFiles();
+        }
+        dropzone.addEventListener("click", function () { fileInput.click(); });
+        fileInput.addEventListener("change", function () { addFiles(fileInput.files); fileInput.value = ""; });
+        ["dragenter", "dragover"].forEach(function (evt) {
+          dropzone.addEventListener(evt, function (e) { e.preventDefault(); dropzone.classList.add("dragover"); });
+        });
+        ["dragleave", "drop"].forEach(function (evt) {
+          dropzone.addEventListener(evt, function (e) { e.preventDefault(); dropzone.classList.remove("dragover"); });
+        });
+        dropzone.addEventListener("drop", function (e) { addFiles(e.dataTransfer.files); });
+        document.getElementById("skipUpload").addEventListener("click", function () { advance(); });
+
+        var ENTITY_LABELS = {
+          nonprofit: "501(c)(3) nonprofit", forProfit: "For-profit corporation",
+          government: "Unit of local or state government", tribal: "Tribal entity",
+          solePro: "Sole proprietor / single member", hospital: "Hospital or health system",
+        };
+        var PURPOSE_LABELS = { workingCapital: "Working capital", facility: "Facility", equipment: "Equipment", program: "Program", hiring: "Hiring" };
+        var POP_LABELS = { lowIncome: "Low-income", rural: "Rural", veterans: "Veterans", children: "Children", behavioral: "Behavioral health" };
+        function selectedValue(containerId) {
+          var el = document.querySelector("#" + containerId + " .toggle-btn.selected");
+          return el ? el.getAttribute("data-value") : "";
+        }
+        function renderReview() {
+          var pops = Array.prototype.slice.call(document.querySelectorAll("#populationsGroup .pill.selected"))
+            .map(function (p) { return POP_LABELS[p.getAttribute("data-value")]; });
+          var groups = [
+            { title: "Organization", screen: "d1", rows: [
+              ["Entity type", ENTITY_LABELS[document.getElementById("entityType").value] || "—"],
+              ["Primary state", stateSelect.value],
+              ["Years operating", document.getElementById("yearsOperating").value + " yrs"],
+              ["Employees", document.getElementById("employees").value],
+            ]},
+            { title: "Funding need", screen: "d2", rows: [
+              ["Capital purpose", PURPOSE_LABELS[document.getElementById("purpose").value] || "—"],
+              ["Capital need", fmtMoney(document.getElementById("capitalNeed").value)],
+              ["Annual revenue", fmtMoney(document.getElementById("annualRevenue").value)],
+              ["Rural service area", selectedValue("ruralToggle") === "yes" ? "Yes" : "No"],
+              ["Populations served", pops.length ? pops.join(", ") : "—"],
+            ]},
+            { title: "Financial readiness", screen: "d3", rows: [
+              ["Days cash on hand", document.getElementById("daysCash").value + " days"],
+              ["Debt service coverage", (document.getElementById("dscr").value / 100).toFixed(2) + "×"],
+              ["Documented match", document.getElementById("matchPct").value + "%"],
+              ["SAM.gov active", document.getElementById("samMonths").value + " mo"],
+              ["Audited financials", selectedValue("auditedToggle") === "yes" ? "Yes" : "No"],
+              ["Prior public award", selectedValue("priorAwardToggle") === "yes" ? "Yes" : "No"],
+            ]},
+            { title: "Documents", screen: "d4", rows: [["Files attached", files.length ? files.length + " file(s)" : "None yet"]] },
+          ];
+          var html = "";
+          groups.forEach(function (g) {
+            html += '<div class="review-group"><div class="review-head"><h3>' + g.title + '</h3>' +
+              '<button type="button" class="review-edit" data-screen="' + g.screen + '">Edit</button></div><dl>';
+            g.rows.forEach(function (r) { html += '<div class="review-row"><dt>' + r[0] + "</dt><dd>" + r[1] + "</dd></div>"; });
+            html += "</dl></div>";
+          });
+          document.getElementById("reviewContent").innerHTML = html;
+          document.querySelectorAll(".review-edit").forEach(function (btn) {
+            btn.addEventListener("click", function () { goToScreen(btn.getAttribute("data-screen")); });
+          });
+        }
+
+        function stepValid(key) {
+          if (key === "d1") return document.getElementById("entityType").value !== "";
+          if (key === "d2") return document.getElementById("purpose").value !== "";
+          return true;
+        }
+
+        function totalWeight(phase) {
+          var t = 0;
+          Object.keys(PHASE_OF).forEach(function (k) { if (PHASE_OF[k] === phase) t += PHASE_WEIGHT[k]; });
+          return t;
+        }
+
+        function renderProgress() {
+          var key = ORDER[idx];
+          for (var p = 1; p <= 3; p++) {
+            var fill = document.getElementById("seg" + p);
+            var phaseOfKey = PHASE_OF[key];
+            if (key === "success" || (phaseOfKey && phaseOfKey > p)) {
+              fill.style.width = "100%";
+            } else if (phaseOfKey === p) {
+              var done = 0, seen = false;
+              var total = totalWeight(p);
+              Object.keys(PHASE_OF).forEach(function (k) {
+                if (PHASE_OF[k] !== p) return;
+                if (k === key) { seen = true; return; }
+                if (!seen) done += PHASE_WEIGHT[k];
+              });
+              fill.style.width = Math.min(100, (done / total) * 100) + "%";
+            } else {
+              fill.style.width = "0%";
+            }
+          }
+        }
+
+        function render() {
+          var key = ORDER[idx];
+          document.querySelectorAll(".screen").forEach(function (s) {
+            var match = s.id === "screen-" + key || s.getAttribute("data-screen") === key;
+            s.classList.toggle("active", match);
+          });
+          var footer = document.getElementById("footerNav");
+          footer.style.display = key === "intro" || key === "success" ? "none" : "block";
+          document.getElementById("backBtn").style.visibility = idx <= 1 ? "hidden" : "visible";
+          document.getElementById("nextBtn").textContent = key === "d5" ? "Submit request" : "Next";
+          if (key === "d5") renderReview();
+          renderProgress();
+          window.scrollTo({ top: 0, behavior: "smooth" });
+        }
+
+        function advance() {
+          if (idx < ORDER.length - 1) { idx++; render(); }
+        }
+
+        document.getElementById("getStartedBtn").addEventListener("click", advance);
+
+        document.getElementById("backBtn").addEventListener("click", function () {
+          if (idx > 1) { idx--; render(); }
+        });
+
+        document.getElementById("nextBtn").addEventListener("click", function () {
+          var key = ORDER[idx];
+          if (!stepValid(key)) {
+            var required = key === "d1" ? "entityType" : "purpose";
+            document.getElementById(required).style.borderColor = "hsl(var(--destructive))";
+            return;
+          }
+          if (key === "d5") {
+            var btn = document.getElementById("nextBtn");
+            btn.setAttribute("disabled", "disabled");
+            btn.textContent = "Submitting...";
+            setTimeout(function () { idx = ORDER.length - 1; render(); }, 800);
+            return;
+          }
+          advance();
+        });
+
+        function goToScreen(key) {
+          idx = ORDER.indexOf(key);
+          render();
+        }
+
+        render();
+      })();
+    </script>
+  </body>
+</html>
