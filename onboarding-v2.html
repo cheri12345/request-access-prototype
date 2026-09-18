@@ -147,6 +147,52 @@
         margin: 12px 0 0;
       }
 
+      .checklist {
+        margin-top: 32px;
+        padding-top: 28px;
+        border-top: 1px solid hsl(var(--border));
+        max-width: 360px;
+      }
+
+      .checklist-title {
+        font-size: 0.8125rem;
+        font-weight: 600;
+        color: hsl(var(--ink));
+        margin: 0 0 12px;
+      }
+
+      .checklist-items {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      .checklist-items li {
+        display: flex;
+        align-items: flex-start;
+        gap: 10px;
+        font-size: 0.875rem;
+        color: hsl(var(--stone));
+        line-height: 1.4;
+      }
+
+      .checklist-items li::before {
+        content: "";
+        flex-shrink: 0;
+        width: 16px;
+        height: 16px;
+        margin-top: 2px;
+        border-radius: 999px;
+        background: hsl(var(--teal) / 0.2);
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%230f766e' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'%3E%3C/polyline%3E%3C/svg%3E");
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: 9px 9px;
+      }
+
       .phase-list {
         display: flex;
         flex-direction: column;
@@ -167,13 +213,10 @@
         border-top: 1px solid hsl(var(--border));
       }
 
-      .phase-eyebrow {
-        font-size: 0.75rem;
-        font-weight: 600;
-        letter-spacing: 0.04em;
-        text-transform: uppercase;
+      .phase-num {
+        font-weight: 400;
         color: hsl(var(--stone));
-        margin: 0 0 4px;
+        margin-right: 6px;
       }
 
       .phase-text h3 {
@@ -758,7 +801,16 @@
           <div class="intro-body">
             <div>
               <h1 class="intro-headline">Move money faster with CHELCIE</h1>
-              <p class="intro-time-estimate">About 7 minutes to complete.</p>
+              <p class="intro-time-estimate">Takes about 7 minutes to complete.</p>
+
+              <div class="checklist">
+                <p class="checklist-title">What you'll need</p>
+                <ul class="checklist-items">
+                  <li>Basic organization details</li>
+                  <li>Recent financial figures (revenue, cash on hand, coverage ratio)</li>
+                  <li>Supporting financial documents (optional at this step)</li>
+                </ul>
+              </div>
             </div>
             <div class="phase-list">
               <div class="phase-item">
@@ -766,8 +818,7 @@
                   <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18"></path><path d="M5 21V7l7-4 7 4v14"></path><path d="M9 9h1M14 9h1M9 13h1M14 13h1M9 17h1M14 17h1"></path></svg>
                 </span>
                 <div class="phase-text">
-                  <p class="phase-eyebrow">Step 1</p>
-                  <h3>Tell us about your organization</h3>
+                  <h3><span class="phase-num">1</span>Tell us about your organization</h3>
                   <p>Entity type, location, and what you're looking to fund.</p>
                 </div>
               </div>
@@ -776,8 +827,7 @@
                   <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="20" x2="12" y2="10"></line><line x1="18" y1="20" x2="18" y2="4"></line><line x1="6" y1="20" x2="6" y2="16"></line></svg>
                 </span>
                 <div class="phase-text">
-                  <p class="phase-eyebrow">Step 2</p>
-                  <h3>Show your financial readiness</h3>
+                  <h3><span class="phase-num">2</span>Show your financial readiness</h3>
                   <p>The eligibility signals programs screen for: cash on hand, coverage ratio, prior awards.</p>
                 </div>
               </div>
@@ -786,8 +836,7 @@
                   <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
                 </span>
                 <div class="phase-text">
-                  <p class="phase-eyebrow">Step 3</p>
-                  <h3>Upload documents &amp; submit</h3>
+                  <h3><span class="phase-num">3</span>Upload documents &amp; submit</h3>
                   <p>Attach supporting financials, review everything, then send your request.</p>
                 </div>
               </div>
