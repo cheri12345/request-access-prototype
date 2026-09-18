@@ -264,79 +264,6 @@
         justify-content: flex-end;
       }
 
-      /* ── TRANSITION SCREENS ── */
-      .transition-body {
-        flex: 1;
-        display: grid;
-        grid-template-columns: 1fr;
-        gap: 40px;
-        align-items: center;
-        padding: 40px 40px 110px;
-        max-width: 1100px;
-        margin: 0 auto;
-        width: 100%;
-      }
-
-      @media (min-width: 860px) {
-        .transition-body {
-          grid-template-columns: 1fr 1fr;
-        }
-      }
-
-      .transition-eyebrow {
-        font-size: 0.875rem;
-        font-weight: 600;
-        color: hsl(var(--stone));
-        margin: 0 0 16px;
-      }
-
-      .transition-headline {
-        font-size: 2.25rem;
-        line-height: 1.1;
-        margin-bottom: 20px;
-      }
-
-      @media (min-width: 860px) {
-        .transition-headline {
-          font-size: 2.75rem;
-        }
-      }
-
-      .transition-desc {
-        font-size: 1rem;
-        color: hsl(var(--stone));
-        max-width: 42ch;
-      }
-
-      .transition-art {
-        aspect-ratio: 1.2 / 1;
-        border-radius: 16px;
-        background: linear-gradient(135deg, hsl(var(--ink)) 0%, #0f2a26 100%);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        position: relative;
-        overflow: hidden;
-      }
-
-      .transition-art svg {
-        width: 45%;
-        height: 45%;
-        position: relative;
-        z-index: 1;
-      }
-
-      .transition-art::before {
-        content: "";
-        position: absolute;
-        width: 220px;
-        height: 220px;
-        border-radius: 999px;
-        background: hsl(var(--teal) / 0.35);
-        filter: blur(50px);
-        top: -40px;
-        left: -40px;
-      }
 
       /* ── DATA SCREENS ── */
       .data-body {
@@ -860,20 +787,6 @@
         </div>
       </section>
 
-      <!-- PHASE 1 TRANSITION -->
-      <section class="screen" data-screen="t1">
-        <div class="transition-body">
-          <div>
-            <p class="transition-eyebrow">Step 1 of 3</p>
-            <h2 class="transition-headline">Tell us about your organization</h2>
-            <p class="transition-desc">You'll share your entity type, location, and what you're looking to fund. Takes about two minutes.</p>
-          </div>
-          <div class="transition-art">
-            <svg viewBox="0 0 24 24" fill="none" stroke="#6ecfad" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18"></path><path d="M5 21V7l7-4 7 4v14"></path><path d="M9 9h1M14 9h1M9 13h1M14 13h1M9 17h1M14 17h1"></path></svg>
-          </div>
-        </div>
-      </section>
-
       <!-- DATA: ORG PROFILE -->
       <section class="screen" data-screen="d1">
         <div class="data-body">
@@ -972,19 +885,6 @@
         </div>
       </section>
 
-      <!-- PHASE 2 TRANSITION -->
-      <section class="screen" data-screen="t2">
-        <div class="transition-body">
-          <div>
-            <p class="transition-eyebrow">Step 2 of 3</p>
-            <h2 class="transition-headline">Show your financial readiness</h2>
-            <p class="transition-desc">These are common thresholds programs screen for. Estimates are fine for now. You can refine them later.</p>
-          </div>
-          <div class="transition-art">
-            <svg viewBox="0 0 24 24" fill="none" stroke="#6ecfad" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="20" x2="12" y2="10"></line><line x1="18" y1="20" x2="18" y2="4"></line><line x1="6" y1="20" x2="6" y2="16"></line></svg>
-          </div>
-        </div>
-      </section>
 
       <!-- DATA: FINANCIAL READINESS -->
       <section class="screen" data-screen="d3">
@@ -1043,19 +943,6 @@
         </div>
       </section>
 
-      <!-- PHASE 3 TRANSITION -->
-      <section class="screen" data-screen="t3">
-        <div class="transition-body">
-          <div>
-            <p class="transition-eyebrow">Step 3 of 3</p>
-            <h2 class="transition-headline">Upload documents &amp; submit</h2>
-            <p class="transition-desc">Attach supporting financials, review everything you've entered, then send your request.</p>
-          </div>
-          <div class="transition-art">
-            <svg viewBox="0 0 24 24" fill="none" stroke="#6ecfad" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
-          </div>
-        </div>
-      </section>
 
       <!-- DATA: DOCUMENTS -->
       <section class="screen" data-screen="d4">
@@ -1139,9 +1026,9 @@
 
     <script>
       (function () {
-        var ORDER = ["intro", "t1", "d1", "d2", "t2", "d3", "t3", "d4", "d5", "success"];
-        var PHASE_OF = { t1: 1, d1: 1, d2: 1, t2: 2, d3: 2, t3: 3, d4: 3, d5: 3 };
-        var PHASE_WEIGHT = { t1: 0.15, d1: 0.55, d2: 1, t2: 0.15, d3: 1, t3: 0.15, d4: 0.55, d5: 1 };
+        var ORDER = ["intro", "d1", "d2", "d3", "d4", "d5", "success"];
+        var PHASE_OF = { d1: 1, d2: 1, d3: 2, d4: 3, d5: 3 };
+        var PHASE_WEIGHT = { d1: 1, d2: 1, d3: 1, d4: 1, d5: 1 };
         var idx = 0;
         var files = [];
 
