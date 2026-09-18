@@ -555,12 +555,12 @@
       }
 
       .progress-track {
-        display: grid;
+        display: none;
         grid-template-columns: repeat(3, 1fr);
         gap: 6px;
         max-width: 1100px;
         margin: 0 auto;
-        padding: 14px 40px 0;
+        padding: 20px 40px 0;
       }
 
       .progress-seg-wrap {
@@ -747,6 +747,21 @@
       <a class="pill-link" href="index.html">Exit</a>
     </div>
 
+    <div class="progress-track" id="progressTrack">
+      <div class="progress-seg-wrap">
+        <p class="progress-label" id="label1">Organization</p>
+        <div class="progress-seg"><div class="progress-seg-fill" id="seg1"></div></div>
+      </div>
+      <div class="progress-seg-wrap">
+        <p class="progress-label" id="label2">Financial readiness</p>
+        <div class="progress-seg"><div class="progress-seg-fill" id="seg2"></div></div>
+      </div>
+      <div class="progress-seg-wrap">
+        <p class="progress-label" id="label3">Documents &amp; submit</p>
+        <div class="progress-seg"><div class="progress-seg-fill" id="seg3"></div></div>
+      </div>
+    </div>
+
     <main>
       <!-- INTRO -->
       <section class="screen active" id="screen-intro">
@@ -805,7 +820,6 @@
       <!-- DATA: ORG PROFILE -->
       <section class="screen" data-screen="d1">
         <div class="data-body">
-          <p class="data-eyebrow">Step 1 of 5</p>
           <h2 class="data-title">Your organization</h2>
 
           <div class="field-group">
@@ -848,7 +862,6 @@
       <!-- DATA: FUNDING NEED -->
       <section class="screen" data-screen="d2">
         <div class="data-body">
-          <p class="data-eyebrow">Step 2 of 5</p>
           <h2 class="data-title">What are you looking to fund?</h2>
 
           <div class="field-group">
@@ -904,7 +917,6 @@
       <!-- DATA: FINANCIAL READINESS -->
       <section class="screen" data-screen="d3">
         <div class="data-body">
-          <p class="data-eyebrow">Step 3 of 5</p>
           <h2 class="data-title">A few readiness signals</h2>
 
           <div class="field-group">
@@ -962,7 +974,6 @@
       <!-- DATA: DOCUMENTS -->
       <section class="screen" data-screen="d4">
         <div class="data-body">
-          <p class="data-eyebrow">Step 4 of 5</p>
           <h2 class="data-title">Upload supporting documents</h2>
           <p style="font-size: 0.9375rem; color: hsl(var(--stone)); margin: -16px 0 24px;">Financial statements, payer mix data, operational metrics, and relevant documentation. Multiple file formats supported.</p>
 
@@ -985,7 +996,6 @@
       <!-- DATA: REVIEW -->
       <section class="screen" data-screen="d5">
         <div class="data-body">
-          <p class="data-eyebrow">Step 5 of 5</p>
           <h2 class="data-title">Review your request</h2>
           <div id="reviewContent"></div>
           <p style="font-size: 0.8125rem; color: hsl(var(--stone)); margin-top: 24px;">By submitting, you agree to our <a href="index.html" style="text-decoration: underline;">privacy policy</a>. We'll never share your information.</p>
@@ -1028,20 +1038,6 @@
     </main>
 
     <div class="footer-nav" id="footerNav">
-      <div class="progress-track" id="progressTrack">
-        <div class="progress-seg-wrap">
-          <p class="progress-label" id="label1">Organization</p>
-          <div class="progress-seg"><div class="progress-seg-fill" id="seg1"></div></div>
-        </div>
-        <div class="progress-seg-wrap">
-          <p class="progress-label" id="label2">Financial readiness</p>
-          <div class="progress-seg"><div class="progress-seg-fill" id="seg2"></div></div>
-        </div>
-        <div class="progress-seg-wrap">
-          <p class="progress-label" id="label3">Documents &amp; submit</p>
-          <div class="progress-seg"><div class="progress-seg-fill" id="seg3"></div></div>
-        </div>
-      </div>
       <div class="footer-nav-inner">
         <button type="button" class="back-link" id="backBtn">Back</button>
         <button type="button" class="btn-next" id="nextBtn">Next</button>
@@ -1242,7 +1238,9 @@
             s.classList.toggle("active", match);
           });
           var footer = document.getElementById("footerNav");
-          footer.style.display = key === "intro" || key === "success" ? "none" : "block";
+          var hideChrome = key === "intro" || key === "success";
+          footer.style.display = hideChrome ? "none" : "block";
+          document.getElementById("progressTrack").style.display = hideChrome ? "none" : "grid";
           document.getElementById("backBtn").style.visibility = idx === 0 ? "hidden" : "visible";
           var NEXT_SCREEN_LABEL = { d1: "funding need", d2: "financial readiness", d3: "documents", d4: "review" };
           document.getElementById("nextBtn").textContent = key === "d5" ? "Submit request" : "Continue to " + NEXT_SCREEN_LABEL[key];
