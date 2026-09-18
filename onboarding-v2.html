@@ -148,6 +148,7 @@
       }
 
       .checklist {
+        display: none;
         margin-top: 32px;
         padding-top: 28px;
         border-top: 1px solid hsl(var(--border));
@@ -569,10 +570,38 @@
         display: grid;
         grid-template-columns: repeat(3, 1fr);
         gap: 6px;
-        height: 4px;
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 14px 40px 0;
+      }
+
+      .progress-seg-wrap {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+      }
+
+      .progress-label {
+        font-size: 0.75rem;
+        font-weight: 500;
+        color: hsl(var(--border));
+        margin: 0;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      .progress-label.is-current {
+        color: hsl(var(--ink));
+        font-weight: 700;
+      }
+
+      .progress-label.is-done {
+        color: #0f766e;
       }
 
       .progress-seg {
+        height: 4px;
         background: hsl(var(--border));
         border-radius: 999px;
         overflow: hidden;
@@ -736,6 +765,7 @@
             <div>
               <h1 class="intro-headline">Move money faster with CHELCIE</h1>
               <p class="intro-time-estimate">Takes about 7 minutes to complete.</p>
+              <p class="intro-time-estimate">Everything you share here is used to verify your organization and match it to the right programs.</p>
 
               <div class="checklist">
                 <p class="checklist-title">What you'll need</p>
@@ -1014,9 +1044,18 @@
 
     <div class="footer-nav" id="footerNav">
       <div class="progress-track" id="progressTrack">
-        <div class="progress-seg"><div class="progress-seg-fill" id="seg1"></div></div>
-        <div class="progress-seg"><div class="progress-seg-fill" id="seg2"></div></div>
-        <div class="progress-seg"><div class="progress-seg-fill" id="seg3"></div></div>
+        <div class="progress-seg-wrap">
+          <p class="progress-label" id="label1">Organization</p>
+          <div class="progress-seg"><div class="progress-seg-fill" id="seg1"></div></div>
+        </div>
+        <div class="progress-seg-wrap">
+          <p class="progress-label" id="label2">Financial readiness</p>
+          <div class="progress-seg"><div class="progress-seg-fill" id="seg2"></div></div>
+        </div>
+        <div class="progress-seg-wrap">
+          <p class="progress-label" id="label3">Documents &amp; submit</p>
+          <div class="progress-seg"><div class="progress-seg-fill" id="seg3"></div></div>
+        </div>
       </div>
       <div class="footer-nav-inner">
         <button type="button" class="back-link" id="backBtn">Back</button>
@@ -1189,9 +1228,12 @@
           var key = ORDER[idx];
           for (var p = 1; p <= 3; p++) {
             var fill = document.getElementById("seg" + p);
+            var label = document.getElementById("label" + p);
             var phaseOfKey = PHASE_OF[key];
+            label.classList.remove("is-current", "is-done");
             if (key === "success" || (phaseOfKey && phaseOfKey > p)) {
               fill.style.width = "100%";
+              label.classList.add("is-done");
             } else if (phaseOfKey === p) {
               var done = 0, seen = false;
               var total = totalWeight(p);
@@ -1201,6 +1243,7 @@
                 if (!seen) done += PHASE_WEIGHT[k];
               });
               fill.style.width = Math.min(100, (done / total) * 100) + "%";
+              label.classList.add("is-current");
             } else {
               fill.style.width = "0%";
             }
@@ -1216,7 +1259,8 @@
           var footer = document.getElementById("footerNav");
           footer.style.display = key === "intro" || key === "success" ? "none" : "block";
           document.getElementById("backBtn").style.visibility = idx === 0 ? "hidden" : "visible";
-          document.getElementById("nextBtn").textContent = key === "d5" ? "Submit request" : "Next";
+          var NEXT_SCREEN_LABEL = { d1: "funding need", d2: "financial readiness", d3: "documents", d4: "review" };
+          document.getElementById("nextBtn").textContent = key === "d5" ? "Submit request" : "Continue to " + NEXT_SCREEN_LABEL[key];
           if (key === "d5") renderReview();
           renderProgress();
           window.scrollTo({ top: 0, behavior: "smooth" });
