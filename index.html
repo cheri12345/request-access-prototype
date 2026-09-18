@@ -249,12 +249,6 @@
         margin-bottom: 28px;
       }
 
-      @media (min-width: 480px) {
-        .row {
-          grid-template-columns: 1fr 1fr;
-        }
-      }
-
       .row .field-group {
         margin-bottom: 0;
       }
@@ -311,12 +305,12 @@
       textarea {
         width: 100%;
         font-family: inherit;
-        font-size: 0.9375rem;
+        font-size: 1rem;
         color: hsl(var(--ink));
         background: hsl(var(--paper));
         border: 1px solid hsl(var(--border));
         border-radius: 6px;
-        padding: 10px 12px;
+        padding: 14px 16px;
         outline: none;
       }
 
@@ -490,12 +484,12 @@
       <div class="panel-right">
         <div class="form-wrap">
           <div id="form-view">
-            <p class="eyebrow">Get started</p>
+            <p class="eyebrow">Let's Connect</p>
             <div class="rule"></div>
 
             <form id="access-form" novalidate>
               <div class="field-group">
-                <span class="label" id="side-label">Which side are you on? *</span>
+                <span class="label" id="side-label">Which side are you on?</span>
                 <div class="side-options" role="radiogroup" aria-labelledby="side-label" id="side-options">
                   <button type="button" class="side-option" data-value="deploy">
                     <span class="side-option-label">I deploy capital</span>
@@ -515,12 +509,12 @@
 
               <div class="row">
                 <div class="field-group">
-                  <label for="name">Name *</label>
+                  <label for="name">Name</label>
                   <input type="text" id="name" placeholder="Your name" />
                   <p class="error-text" id="error-name" hidden>Enter your name.</p>
                 </div>
                 <div class="field-group">
-                  <label for="organization">Organization *</label>
+                  <label for="organization">Organization</label>
                   <input type="text" id="organization" placeholder="Company or institution" />
                   <p class="error-text" id="error-organization" hidden>Enter your organization.</p>
                 </div>
@@ -528,12 +522,12 @@
 
               <div class="row">
                 <div class="field-group">
-                  <label for="email">Email *</label>
+                  <label for="email">Email</label>
                   <input type="email" id="email" placeholder="you@company.com" />
                   <p class="error-text" id="error-email" hidden>Enter a valid email address.</p>
                 </div>
                 <div class="field-group">
-                  <label for="role">Role *</label>
+                  <label for="role">Role</label>
                   <select id="role">
                     <option value="" disabled selected>Select your role</option>
                     <option value="foundation">Foundation or program officer</option>
