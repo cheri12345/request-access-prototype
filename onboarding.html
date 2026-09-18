@@ -1,0 +1,1124 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Onboarding — CHELCIE Prototype</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --ink: 240 4% 4%;
+        --paper: 60 20% 98%;
+        --teal: 159 50% 62%;
+        --stone: 42 4% 41%;
+        --border: 43 20% 88%;
+        --destructive: 15 62% 47%;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html,
+      body {
+        margin: 0;
+        min-height: 100vh;
+      }
+
+      body {
+        background: hsl(var(--paper));
+        color: hsl(var(--ink));
+        font-family: "Inter", system-ui, sans-serif;
+        font-size: 1rem;
+        line-height: 1.5;
+        -webkit-font-smoothing: antialiased;
+      }
+
+      a {
+        color: inherit;
+      }
+
+      h1,
+      h2 {
+        font-family: "Archivo", system-ui, sans-serif;
+        font-weight: 700;
+        letter-spacing: -0.02em;
+        margin: 0;
+      }
+
+      /* ── TOP BAR ── */
+      .topbar {
+        position: sticky;
+        top: 0;
+        background: hsl(var(--paper) / 0.92);
+        backdrop-filter: blur(6px);
+        border-bottom: 1px solid hsl(var(--border));
+        padding: 18px 24px;
+        z-index: 10;
+      }
+
+      .topbar-inner {
+        max-width: 760px;
+        margin: 0 auto;
+      }
+
+      .wordmark {
+        display: inline-flex;
+        align-items: center;
+        font-size: 1.1rem;
+        font-weight: 700;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: hsl(var(--ink));
+        text-decoration: none;
+        margin-bottom: 18px;
+      }
+
+      .wordmark sup {
+        font-size: 0.55em;
+        font-weight: 400;
+        margin-left: 2px;
+      }
+
+      /* Stepper: desktop full view */
+      .stepper {
+        display: none;
+        align-items: flex-start;
+        gap: 0;
+      }
+
+      @media (min-width: 700px) {
+        .stepper {
+          display: flex;
+        }
+      }
+
+      .step-node {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 6px;
+        flex: 1;
+        position: relative;
+      }
+
+      .step-node::before {
+        content: "";
+        position: absolute;
+        top: 13px;
+        left: -50%;
+        width: 100%;
+        height: 1px;
+        background: hsl(var(--border));
+        z-index: 0;
+      }
+
+      .step-node:first-child::before {
+        display: none;
+      }
+
+      .step-node.done::before {
+        background: hsl(var(--teal));
+      }
+
+      .step-circle {
+        position: relative;
+        z-index: 1;
+        width: 26px;
+        height: 26px;
+        border-radius: 999px;
+        border: 1.5px solid hsl(var(--border));
+        background: hsl(var(--paper));
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.75rem;
+        font-weight: 600;
+        color: hsl(var(--stone));
+      }
+
+      .step-node.active .step-circle {
+        border-color: hsl(var(--ink));
+        color: hsl(var(--ink));
+      }
+
+      .step-node.done .step-circle {
+        border-color: hsl(var(--teal));
+        background: hsl(var(--teal));
+        color: hsl(var(--ink));
+      }
+
+      .step-label {
+        font-size: 0.75rem;
+        color: hsl(var(--stone));
+        text-align: center;
+        max-width: 92px;
+      }
+
+      .step-node.active .step-label {
+        color: hsl(var(--ink));
+        font-weight: 600;
+      }
+
+      /* Mobile condensed progress */
+      .progress-condensed {
+        display: block;
+      }
+
+      @media (min-width: 700px) {
+        .progress-condensed {
+          display: none;
+        }
+      }
+
+      .progress-condensed .meta {
+        display: flex;
+        justify-content: space-between;
+        font-size: 0.8125rem;
+        color: hsl(var(--stone));
+        margin-bottom: 8px;
+      }
+
+      .progress-condensed .meta strong {
+        color: hsl(var(--ink));
+      }
+
+      .progress-bar {
+        height: 4px;
+        border-radius: 999px;
+        background: hsl(var(--border));
+        overflow: hidden;
+      }
+
+      .progress-bar-fill {
+        height: 100%;
+        background: hsl(var(--teal));
+        transition: width 0.25s ease;
+      }
+
+      /* ── MAIN ── */
+      main {
+        max-width: 640px;
+        margin: 0 auto;
+        padding: 40px 24px 120px;
+      }
+
+      .step-panel {
+        display: none;
+      }
+
+      .step-panel.active {
+        display: block;
+      }
+
+      .step-eyebrow {
+        font-size: 0.8125rem;
+        font-weight: 600;
+        color: hsl(var(--teal) / 1);
+        color: #0f766e;
+        margin: 0 0 6px;
+      }
+
+      .step-title {
+        font-size: 1.5rem;
+        margin-bottom: 8px;
+      }
+
+      .step-subtitle {
+        font-size: 0.9375rem;
+        color: hsl(var(--stone));
+        margin: 0 0 32px;
+        max-width: 48ch;
+      }
+
+      .field-group {
+        margin-bottom: 26px;
+      }
+
+      label,
+      .label {
+        display: block;
+        font-size: 0.875rem;
+        font-weight: 500;
+        margin-bottom: 8px;
+      }
+
+      .field-hint {
+        font-size: 0.8125rem;
+        color: hsl(var(--stone));
+        margin: 6px 0 0;
+      }
+
+      select,
+      input[type="text"],
+      input[type="number"] {
+        width: 100%;
+        font-family: inherit;
+        font-size: 0.9375rem;
+        color: hsl(var(--ink));
+        background: hsl(var(--paper));
+        border: 1px solid hsl(var(--border));
+        border-radius: 6px;
+        padding: 12px 14px;
+        outline: none;
+      }
+
+      select:focus,
+      input:focus {
+        border-color: hsl(var(--teal));
+        box-shadow: 0 0 0 2px hsl(var(--teal) / 0.25);
+      }
+
+      select {
+        appearance: none;
+        -webkit-appearance: none;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23707070' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+        background-repeat: no-repeat;
+        background-position: right 14px center;
+        padding-right: 40px;
+      }
+
+      .row-2 {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 26px;
+      }
+
+      @media (min-width: 480px) {
+        .row-2 {
+          grid-template-columns: 1fr 1fr;
+        }
+      }
+
+      .row-2 .field-group {
+        margin-bottom: 0;
+      }
+
+      /* Slider fields */
+      .slider-head {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        margin-bottom: 8px;
+      }
+
+      .slider-value {
+        font-size: 0.9375rem;
+        font-weight: 600;
+        color: hsl(var(--ink));
+      }
+
+      input[type="range"] {
+        width: 100%;
+        appearance: none;
+        -webkit-appearance: none;
+        height: 4px;
+        border-radius: 999px;
+        background: hsl(var(--border));
+        outline: none;
+      }
+
+      input[type="range"]::-webkit-slider-thumb {
+        appearance: none;
+        -webkit-appearance: none;
+        width: 18px;
+        height: 18px;
+        border-radius: 999px;
+        background: hsl(var(--ink));
+        cursor: pointer;
+        border: 3px solid hsl(var(--paper));
+        box-shadow: 0 0 0 1px hsl(var(--ink));
+      }
+
+      input[type="range"]::-moz-range-thumb {
+        width: 18px;
+        height: 18px;
+        border-radius: 999px;
+        background: hsl(var(--ink));
+        cursor: pointer;
+        border: 3px solid hsl(var(--paper));
+        box-shadow: 0 0 0 1px hsl(var(--ink));
+      }
+
+      /* Toggle pairs (Yes/No) */
+      .toggle-pair {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+        max-width: 280px;
+      }
+
+      .toggle-btn {
+        border: 1px solid hsl(var(--border));
+        background: hsl(var(--paper));
+        border-radius: 6px;
+        padding: 10px 14px;
+        font-family: inherit;
+        font-size: 0.875rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: border-color 0.15s ease, background 0.15s ease;
+      }
+
+      .toggle-btn.selected {
+        border-color: hsl(var(--teal));
+        background: hsl(var(--teal) / 0.12);
+      }
+
+      /* Pill multi-select */
+      .pill-group {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+      }
+
+      .pill {
+        border: 1px solid hsl(var(--border));
+        background: hsl(var(--paper));
+        border-radius: 999px;
+        padding: 8px 16px;
+        font-family: inherit;
+        font-size: 0.8125rem;
+        font-weight: 500;
+        cursor: pointer;
+        transition: border-color 0.15s ease, background 0.15s ease;
+      }
+
+      .pill.selected {
+        border-color: hsl(var(--teal));
+        background: hsl(var(--teal) / 0.15);
+        font-weight: 600;
+      }
+
+      /* Upload */
+      .dropzone {
+        border: 1.5px dashed hsl(var(--border));
+        border-radius: 10px;
+        padding: 32px 20px;
+        text-align: center;
+        cursor: pointer;
+        transition: border-color 0.15s ease, background 0.15s ease;
+      }
+
+      .dropzone.dragover {
+        border-color: hsl(var(--teal));
+        background: hsl(var(--teal) / 0.08);
+      }
+
+      .dropzone-title {
+        font-size: 0.9375rem;
+        font-weight: 600;
+        margin: 8px 0 4px;
+      }
+
+      .dropzone-desc {
+        font-size: 0.8125rem;
+        color: hsl(var(--stone));
+        max-width: 40ch;
+        margin: 0 auto;
+      }
+
+      .file-list {
+        margin-top: 16px;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+
+      .file-row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 10px;
+        border: 1px solid hsl(var(--border));
+        border-radius: 6px;
+        padding: 10px 12px;
+        font-size: 0.8125rem;
+      }
+
+      .file-row .file-name {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+
+      .file-remove {
+        background: none;
+        border: none;
+        color: hsl(var(--stone));
+        cursor: pointer;
+        font-size: 0.75rem;
+        text-decoration: underline;
+        flex-shrink: 0;
+        font-family: inherit;
+      }
+
+      .skip-link {
+        display: inline-block;
+        margin-top: 16px;
+        font-size: 0.8125rem;
+        color: hsl(var(--stone));
+        text-decoration: underline;
+        background: none;
+        border: none;
+        cursor: pointer;
+        font-family: inherit;
+        padding: 0;
+      }
+
+      /* Review step */
+      .review-group {
+        border: 1px solid hsl(var(--border));
+        border-radius: 8px;
+        padding: 18px 20px;
+        margin-bottom: 16px;
+      }
+
+      .review-head {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 12px;
+      }
+
+      .review-head h3 {
+        font-size: 0.9375rem;
+        font-weight: 700;
+        margin: 0;
+      }
+
+      .review-edit {
+        font-size: 0.8125rem;
+        color: #0f766e;
+        text-decoration: underline;
+        background: none;
+        border: none;
+        cursor: pointer;
+        font-family: inherit;
+        padding: 0;
+      }
+
+      .review-row {
+        display: flex;
+        justify-content: space-between;
+        gap: 16px;
+        font-size: 0.8125rem;
+        padding: 6px 0;
+        border-top: 1px solid hsl(var(--border) / 0.6);
+      }
+
+      .review-row:first-of-type {
+        border-top: none;
+      }
+
+      .review-row dt {
+        color: hsl(var(--stone));
+      }
+
+      .review-row dd {
+        margin: 0;
+        text-align: right;
+        font-weight: 500;
+      }
+
+      /* ── FOOTER NAV ── */
+      .footer-nav {
+        position: fixed;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: hsl(var(--paper) / 0.95);
+        backdrop-filter: blur(6px);
+        border-top: 1px solid hsl(var(--border));
+        padding: 16px 24px;
+        z-index: 10;
+      }
+
+      .footer-nav-inner {
+        max-width: 640px;
+        margin: 0 auto;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 12px;
+      }
+
+      .btn {
+        font-family: inherit;
+        font-size: 0.9375rem;
+        font-weight: 600;
+        border-radius: 6px;
+        padding: 11px 22px;
+        cursor: pointer;
+        border: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .btn-primary {
+        background: hsl(var(--teal));
+        color: hsl(var(--ink));
+      }
+
+      .btn-primary:hover {
+        opacity: 0.92;
+      }
+
+      .btn-ghost {
+        background: none;
+        border: 1px solid hsl(var(--border));
+        color: hsl(var(--ink));
+      }
+
+      .btn-ghost:hover {
+        border-color: hsl(var(--ink) / 0.4);
+      }
+
+      .btn[disabled] {
+        opacity: 0.5;
+        cursor: not-allowed;
+      }
+
+      /* ── SUCCESS ── */
+      #success-panel {
+        display: none;
+        text-align: center;
+        padding: 80px 24px;
+      }
+
+      #success-panel.active {
+        display: block;
+      }
+
+      .success-icon {
+        width: 60px;
+        height: 60px;
+        border-radius: 999px;
+        background: hsl(var(--teal) / 0.15);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 20px;
+      }
+
+      .success-icon svg {
+        width: 28px;
+        height: 28px;
+        stroke: #0f766e;
+      }
+
+      #success-panel h2 {
+        font-size: 1.5rem;
+        margin-bottom: 10px;
+      }
+
+      #success-panel p {
+        font-size: 0.9375rem;
+        color: hsl(var(--stone));
+        max-width: 36ch;
+        margin: 0 auto;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="topbar">
+      <div class="topbar-inner">
+        <a class="wordmark" href="index.html">CHELCIE<sup>™</sup></a>
+
+        <div class="stepper" id="stepper"></div>
+
+        <div class="progress-condensed">
+          <div class="meta">
+            <span>Step <strong id="step-num">1</strong> of 5</span>
+            <span id="step-next-preview"></span>
+          </div>
+          <div class="progress-bar"><div class="progress-bar-fill" id="progress-fill"></div></div>
+        </div>
+      </div>
+    </div>
+
+    <main>
+      <!-- STEP 1 -->
+      <section class="step-panel active" data-step="1">
+        <p class="step-eyebrow">Organization</p>
+        <h2 class="step-title">Tell us about your organization</h2>
+        <p class="step-subtitle">This helps us route your request to the right programs and reviewers.</p>
+
+        <div class="field-group">
+          <label for="entityType">Entity type</label>
+          <select id="entityType">
+            <option value="" disabled selected>Select entity type</option>
+            <option value="nonprofit">501(c)(3) nonprofit</option>
+            <option value="forProfit">For-profit corporation</option>
+            <option value="government">Unit of local or state government</option>
+            <option value="tribal">Tribal entity</option>
+            <option value="solePro">Sole proprietor / single member</option>
+            <option value="hospital">Hospital or health system</option>
+          </select>
+        </div>
+
+        <div class="row-2">
+          <div class="field-group">
+            <label for="stateSelect">Primary state</label>
+            <select id="stateSelect"></select>
+          </div>
+          <div class="field-group">
+            <div class="slider-head">
+              <label for="yearsOperating" style="margin-bottom: 0">Years operating</label>
+              <span class="slider-value" id="yearsOperating-value">6 yrs</span>
+            </div>
+            <input type="range" id="yearsOperating" min="0" max="40" value="6" />
+          </div>
+        </div>
+
+        <div class="field-group">
+          <div class="slider-head">
+            <label for="employees" style="margin-bottom: 0">Employees</label>
+            <span class="slider-value" id="employees-value">45</span>
+          </div>
+          <input type="range" id="employees" min="1" max="2500" value="45" />
+        </div>
+      </section>
+
+      <!-- STEP 2 -->
+      <section class="step-panel" data-step="2">
+        <p class="step-eyebrow">Funding need</p>
+        <h2 class="step-title">What are you looking to fund?</h2>
+        <p class="step-subtitle">Capital purpose and size are the biggest factors in matching you to programs.</p>
+
+        <div class="field-group">
+          <label for="purpose">Capital purpose</label>
+          <select id="purpose">
+            <option value="" disabled selected>Select purpose</option>
+            <option value="workingCapital">Working capital</option>
+            <option value="facility">Facility</option>
+            <option value="equipment">Equipment</option>
+            <option value="program">Program</option>
+            <option value="hiring">Hiring</option>
+          </select>
+        </div>
+
+        <div class="field-group">
+          <div class="slider-head">
+            <label for="capitalNeed" style="margin-bottom: 0">Capital need</label>
+            <span class="slider-value" id="capitalNeed-value">$2,500,000</span>
+          </div>
+          <input type="range" id="capitalNeed" min="50000" max="40000000" step="50000" value="2500000" />
+        </div>
+
+        <div class="field-group">
+          <div class="slider-head">
+            <label for="annualRevenue" style="margin-bottom: 0">Annual revenue</label>
+            <span class="slider-value" id="annualRevenue-value">$8,000,000</span>
+          </div>
+          <input type="range" id="annualRevenue" min="250000" max="300000000" step="250000" value="8000000" />
+        </div>
+
+        <div class="field-group">
+          <span class="label">Rural service area</span>
+          <div class="toggle-pair" id="ruralToggle">
+            <button type="button" class="toggle-btn" data-value="yes">Yes</button>
+            <button type="button" class="toggle-btn selected" data-value="no">No</button>
+          </div>
+        </div>
+
+        <div class="field-group">
+          <span class="label">Populations served</span>
+          <div class="pill-group" id="populationsGroup">
+            <button type="button" class="pill" data-value="lowIncome">Low-income</button>
+            <button type="button" class="pill" data-value="rural">Rural</button>
+            <button type="button" class="pill" data-value="veterans">Veterans</button>
+            <button type="button" class="pill" data-value="children">Children</button>
+            <button type="button" class="pill" data-value="behavioral">Behavioral health</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- STEP 3 -->
+      <section class="step-panel" data-step="3">
+        <p class="step-eyebrow">Financial readiness</p>
+        <h2 class="step-title">A few readiness signals</h2>
+        <p class="step-subtitle">These are common thresholds programs screen for. Estimates are fine for now.</p>
+
+        <div class="field-group">
+          <div class="slider-head">
+            <label for="daysCash" style="margin-bottom: 0">Days cash on hand</label>
+            <span class="slider-value" id="daysCash-value">47 days</span>
+          </div>
+          <input type="range" id="daysCash" min="0" max="240" value="47" />
+        </div>
+
+        <div class="field-group">
+          <div class="slider-head">
+            <label for="dscr" style="margin-bottom: 0">Debt service coverage</label>
+            <span class="slider-value" id="dscr-value">1.32&times;</span>
+          </div>
+          <input type="range" id="dscr" min="0" max="300" value="132" />
+        </div>
+
+        <div class="field-group">
+          <div class="slider-head">
+            <label for="matchPct" style="margin-bottom: 0">Documented non-federal match</label>
+            <span class="slider-value" id="matchPct-value">15%</span>
+          </div>
+          <input type="range" id="matchPct" min="0" max="50" value="15" />
+        </div>
+
+        <div class="field-group">
+          <div class="slider-head">
+            <label for="samMonths" style="margin-bottom: 0">SAM.gov active</label>
+            <span class="slider-value" id="samMonths-value">14 mo</span>
+          </div>
+          <input type="range" id="samMonths" min="0" max="36" value="14" />
+        </div>
+
+        <div class="row-2">
+          <div class="field-group">
+            <span class="label">Audited or reviewed financials</span>
+            <div class="toggle-pair" id="auditedToggle">
+              <button type="button" class="toggle-btn selected" data-value="yes">Yes</button>
+              <button type="button" class="toggle-btn" data-value="no">No</button>
+            </div>
+          </div>
+          <div class="field-group">
+            <span class="label">Active or prior public award</span>
+            <div class="toggle-pair" id="priorAwardToggle">
+              <button type="button" class="toggle-btn selected" data-value="yes">Yes</button>
+              <button type="button" class="toggle-btn" data-value="no">No</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- STEP 4 -->
+      <section class="step-panel" data-step="4">
+        <p class="step-eyebrow">Documents</p>
+        <h2 class="step-title">Upload supporting documents</h2>
+        <p class="step-subtitle">Financial statements, payer mix data, operational metrics, and relevant documentation. Multiple file formats supported.</p>
+
+        <div class="dropzone" id="dropzone">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#707070" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="margin: 0 auto; display: block;">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+            <polyline points="17 8 12 3 7 8"></polyline>
+            <line x1="12" y1="3" x2="12" y2="15"></line>
+          </svg>
+          <p class="dropzone-title">Drag and drop files, or click to browse</p>
+          <p class="dropzone-desc">PDF, DOC, XLS, CSV, or image files</p>
+          <input type="file" id="fileInput" multiple hidden />
+        </div>
+
+        <div class="file-list" id="fileList"></div>
+
+        <button type="button" class="skip-link" id="skipUpload">Skip for now — you can add documents later</button>
+      </section>
+
+      <!-- STEP 5 -->
+      <section class="step-panel" data-step="5">
+        <p class="step-eyebrow">Review</p>
+        <h2 class="step-title">Review your request</h2>
+        <p class="step-subtitle">Check the details below, then submit. You can still edit anything before you send it.</p>
+
+        <div id="reviewContent"></div>
+
+        <p class="field-hint" style="margin-top: 24px;">By submitting, you agree to our <a href="index.html" style="text-decoration: underline;">privacy policy</a>. We'll never share your information.</p>
+      </section>
+
+      <!-- SUCCESS -->
+      <section id="success-panel">
+        <div class="success-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+            <polyline points="22 4 12 14.01 9 11.01"></polyline>
+          </svg>
+        </div>
+        <h2>You're all set</h2>
+        <p>Your request is in review. We'll follow up within one business day with next steps.</p>
+      </section>
+    </main>
+
+    <div class="footer-nav" id="footerNav">
+      <div class="footer-nav-inner">
+        <button type="button" class="btn btn-ghost" id="backBtn">Back</button>
+        <button type="button" class="btn btn-primary" id="nextBtn">
+          <span id="nextBtnLabel">Continue</span>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+            <polyline points="12 5 19 12 12 19"></polyline>
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <script>
+      (function () {
+        var STEPS = [
+          { n: 1, label: "Organization" },
+          { n: 2, label: "Funding need" },
+          { n: 3, label: "Financial readiness" },
+          { n: 4, label: "Documents" },
+          { n: 5, label: "Review" },
+        ];
+        var current = 1;
+        var files = [];
+
+        var US_STATES = [
+          "Alabama","Alaska","Arizona","Arkansas","California","Colorado","Connecticut","Delaware",
+          "District of Columbia","Florida","Georgia","Hawaii","Idaho","Illinois","Indiana","Iowa",
+          "Kansas","Kentucky","Louisiana","Maine","Maryland","Massachusetts","Michigan","Minnesota",
+          "Mississippi","Missouri","Montana","Nebraska","Nevada","New Hampshire","New Jersey","New Mexico",
+          "New York","North Carolina","North Dakota","Ohio","Oklahoma","Oregon","Pennsylvania","Rhode Island",
+          "South Carolina","South Dakota","Tennessee","Texas","Utah","Vermont","Virginia","Washington",
+          "West Virginia","Wisconsin","Wyoming"
+        ];
+
+        var stateSelect = document.getElementById("stateSelect");
+        US_STATES.forEach(function (s) {
+          var opt = document.createElement("option");
+          opt.value = s;
+          opt.textContent = s;
+          stateSelect.appendChild(opt);
+        });
+        stateSelect.value = "Kentucky";
+
+        ["entityType", "purpose"].forEach(function (id) {
+          document.getElementById(id).addEventListener("change", function () {
+            this.style.borderColor = "";
+          });
+        });
+
+        // ── Stepper render ──
+        var stepperEl = document.getElementById("stepper");
+        function renderStepper() {
+          stepperEl.innerHTML = "";
+          STEPS.forEach(function (s) {
+            var node = document.createElement("div");
+            node.className = "step-node" + (s.n === current ? " active" : "") + (s.n < current ? " done" : "");
+            node.innerHTML =
+              '<span class="step-circle">' + (s.n < current ? "&#10003;" : s.n) + "</span>" +
+              '<span class="step-label">' + s.label + "</span>";
+            stepperEl.appendChild(node);
+          });
+        }
+
+        function renderCondensed() {
+          document.getElementById("step-num").textContent = current;
+          var next = STEPS[current];
+          document.getElementById("step-next-preview").textContent = next ? "Next: " + next.label : "";
+          document.getElementById("progress-fill").style.width = (current / STEPS.length) * 100 + "%";
+        }
+
+        // ── Toggle / pill helpers ──
+        function setupToggle(id, onChange) {
+          var el = document.getElementById(id);
+          el.querySelectorAll(".toggle-btn").forEach(function (btn) {
+            btn.addEventListener("click", function () {
+              el.querySelectorAll(".toggle-btn").forEach(function (b) { b.classList.remove("selected"); });
+              btn.classList.add("selected");
+              if (onChange) onChange(btn.getAttribute("data-value"));
+            });
+          });
+        }
+        setupToggle("ruralToggle");
+        setupToggle("auditedToggle");
+        setupToggle("priorAwardToggle");
+
+        document.querySelectorAll("#populationsGroup .pill").forEach(function (pill) {
+          pill.addEventListener("click", function () {
+            pill.classList.toggle("selected");
+          });
+        });
+
+        // ── Sliders ──
+        function fmtMoney(n) {
+          return "$" + Number(n).toLocaleString("en-US");
+        }
+        function bindSlider(id, formatter) {
+          var input = document.getElementById(id);
+          var out = document.getElementById(id + "-value");
+          function update() { out.textContent = formatter(input.value); }
+          input.addEventListener("input", update);
+          update();
+        }
+        bindSlider("yearsOperating", function (v) { return v + " yrs"; });
+        bindSlider("employees", function (v) { return v; });
+        bindSlider("capitalNeed", fmtMoney);
+        bindSlider("annualRevenue", fmtMoney);
+        bindSlider("daysCash", function (v) { return v + " days"; });
+        bindSlider("dscr", function (v) { return (v / 100).toFixed(2) + "×"; });
+        bindSlider("matchPct", function (v) { return v + "%"; });
+        bindSlider("samMonths", function (v) { return v == 0 ? "Not registered" : v + " mo"; });
+
+        // ── File upload ──
+        var dropzone = document.getElementById("dropzone");
+        var fileInput = document.getElementById("fileInput");
+        var fileListEl = document.getElementById("fileList");
+
+        function renderFiles() {
+          fileListEl.innerHTML = "";
+          files.forEach(function (f, i) {
+            var row = document.createElement("div");
+            row.className = "file-row";
+            row.innerHTML =
+              '<span class="file-name">' + f.name + "</span>" +
+              '<button type="button" class="file-remove" data-i="' + i + '">Remove</button>';
+            fileListEl.appendChild(row);
+          });
+          fileListEl.querySelectorAll(".file-remove").forEach(function (btn) {
+            btn.addEventListener("click", function () {
+              files.splice(Number(btn.getAttribute("data-i")), 1);
+              renderFiles();
+            });
+          });
+        }
+
+        function addFiles(fileArr) {
+          Array.prototype.forEach.call(fileArr, function (f) { files.push(f); });
+          renderFiles();
+        }
+
+        dropzone.addEventListener("click", function () { fileInput.click(); });
+        fileInput.addEventListener("change", function () { addFiles(fileInput.files); fileInput.value = ""; });
+        ["dragenter", "dragover"].forEach(function (evt) {
+          dropzone.addEventListener(evt, function (e) { e.preventDefault(); dropzone.classList.add("dragover"); });
+        });
+        ["dragleave", "drop"].forEach(function (evt) {
+          dropzone.addEventListener(evt, function (e) { e.preventDefault(); dropzone.classList.remove("dragover"); });
+        });
+        dropzone.addEventListener("drop", function (e) { addFiles(e.dataTransfer.files); });
+
+        document.getElementById("skipUpload").addEventListener("click", function () { goTo(current + 1); });
+
+        // ── Validation per step ──
+        function stepValid(n) {
+          if (n === 1) return document.getElementById("entityType").value !== "";
+          if (n === 2) return document.getElementById("purpose").value !== "";
+          return true;
+        }
+
+        // ── Review rendering ──
+        var ENTITY_LABELS = {
+          nonprofit: "501(c)(3) nonprofit", forProfit: "For-profit corporation",
+          government: "Unit of local or state government", tribal: "Tribal entity",
+          solePro: "Sole proprietor / single member", hospital: "Hospital or health system",
+        };
+        var PURPOSE_LABELS = {
+          workingCapital: "Working capital", facility: "Facility", equipment: "Equipment",
+          program: "Program", hiring: "Hiring",
+        };
+        var POP_LABELS = {
+          lowIncome: "Low-income", rural: "Rural", veterans: "Veterans",
+          children: "Children", behavioral: "Behavioral health",
+        };
+
+        function selectedValue(containerId) {
+          var el = document.querySelector("#" + containerId + " .toggle-btn.selected");
+          return el ? el.getAttribute("data-value") : "";
+        }
+
+        function renderReview() {
+          var pops = Array.prototype.slice.call(document.querySelectorAll("#populationsGroup .pill.selected"))
+            .map(function (p) { return POP_LABELS[p.getAttribute("data-value")]; });
+
+          var groups = [
+            {
+              title: "Organization", step: 1,
+              rows: [
+                ["Entity type", ENTITY_LABELS[document.getElementById("entityType").value] || "—"],
+                ["Primary state", stateSelect.value],
+                ["Years operating", document.getElementById("yearsOperating").value + " yrs"],
+                ["Employees", document.getElementById("employees").value],
+              ],
+            },
+            {
+              title: "Funding need", step: 2,
+              rows: [
+                ["Capital purpose", PURPOSE_LABELS[document.getElementById("purpose").value] || "—"],
+                ["Capital need", fmtMoney(document.getElementById("capitalNeed").value)],
+                ["Annual revenue", fmtMoney(document.getElementById("annualRevenue").value)],
+                ["Rural service area", selectedValue("ruralToggle") === "yes" ? "Yes" : "No"],
+                ["Populations served", pops.length ? pops.join(", ") : "—"],
+              ],
+            },
+            {
+              title: "Financial readiness", step: 3,
+              rows: [
+                ["Days cash on hand", document.getElementById("daysCash").value + " days"],
+                ["Debt service coverage", (document.getElementById("dscr").value / 100).toFixed(2) + "×"],
+                ["Documented match", document.getElementById("matchPct").value + "%"],
+                ["SAM.gov active", document.getElementById("samMonths").value + " mo"],
+                ["Audited financials", selectedValue("auditedToggle") === "yes" ? "Yes" : "No"],
+                ["Prior public award", selectedValue("priorAwardToggle") === "yes" ? "Yes" : "No"],
+              ],
+            },
+            {
+              title: "Documents", step: 4,
+              rows: [["Files attached", files.length ? files.length + " file(s)" : "None yet"]],
+            },
+          ];
+
+          var html = "";
+          groups.forEach(function (g) {
+            html += '<div class="review-group"><div class="review-head"><h3>' + g.title + '</h3>' +
+              '<button type="button" class="review-edit" data-step="' + g.step + '">Edit</button></div><dl>';
+            g.rows.forEach(function (r) {
+              html += '<div class="review-row"><dt>' + r[0] + "</dt><dd>" + r[1] + "</dd></div>";
+            });
+            html += "</dl></div>";
+          });
+          document.getElementById("reviewContent").innerHTML = html;
+          document.querySelectorAll(".review-edit").forEach(function (btn) {
+            btn.addEventListener("click", function () { goTo(Number(btn.getAttribute("data-step"))); });
+          });
+        }
+
+        // ── Step navigation ──
+        function goTo(n) {
+          current = n;
+          document.querySelectorAll(".step-panel").forEach(function (p) {
+            p.classList.toggle("active", Number(p.getAttribute("data-step")) === n);
+          });
+          renderStepper();
+          renderCondensed();
+          document.getElementById("backBtn").style.visibility = n === 1 ? "hidden" : "visible";
+          document.getElementById("nextBtnLabel").textContent = n === 5 ? "Submit request" : "Continue";
+          if (n === 5) renderReview();
+          window.scrollTo({ top: 0, behavior: "smooth" });
+        }
+
+        document.getElementById("backBtn").addEventListener("click", function () {
+          if (current > 1) goTo(current - 1);
+        });
+
+        document.getElementById("nextBtn").addEventListener("click", function () {
+          if (!stepValid(current)) {
+            var required = current === 1 ? "entityType" : "purpose";
+            document.getElementById(required).style.borderColor = "hsl(var(--destructive))";
+            return;
+          }
+          if (current < 5) {
+            goTo(current + 1);
+          } else {
+            document.getElementById("nextBtn").setAttribute("disabled", "disabled");
+            document.getElementById("nextBtnLabel").textContent = "Submitting...";
+            setTimeout(function () {
+              document.querySelectorAll(".step-panel").forEach(function (p) { p.classList.remove("active"); });
+              document.getElementById("footerNav").style.display = "none";
+              document.getElementById("success-panel").classList.add("active");
+              window.scrollTo({ top: 0, behavior: "smooth" });
+            }, 800);
+          }
+        });
+
+        renderStepper();
+        renderCondensed();
+        document.getElementById("backBtn").style.visibility = "hidden";
+      })();
+    </script>
+  </body>
+</html>
