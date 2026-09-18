@@ -201,7 +201,7 @@
 
       @media (min-width: 860px) {
         .panel-right {
-          padding: 20px 64px;
+          padding: 32px 64px;
         }
       }
 
@@ -232,7 +232,7 @@
       label,
       .label {
         display: block;
-        font-size: 0.875rem;
+        font-size: 1rem;
         font-weight: 500;
         margin-bottom: 12px;
       }
@@ -434,52 +434,42 @@
         display: none;
       }
 
-      /* Compact vertical rhythm on desktop so the form fits one viewport without scrolling. */
+      /* Desktop-only vertical rhythm, tuned to fit one viewport without scrolling. */
       @media (min-width: 860px) {
         .field-group {
-          margin-bottom: 12px;
-        }
-
-        label,
-        .label {
-          margin-bottom: 4px;
+          margin-bottom: 22px;
         }
 
         .row {
-          gap: 12px;
-          margin-bottom: 12px;
-        }
-
-        .rule {
-          margin-bottom: 12px;
+          gap: 22px;
+          margin-bottom: 22px;
         }
 
         input[type="text"],
         input[type="email"],
         select,
         textarea {
-          padding: 9px 14px;
+          padding: 12px 16px;
         }
 
         select {
-          padding-right: 40px;
+          padding-right: 42px;
         }
 
         .side-option {
-          padding: 10px 14px;
+          padding: 18px 16px;
         }
 
         textarea {
-          min-height: 44px;
+          min-height: 60px;
         }
 
         .submit-btn {
-          padding: 9px 20px;
+          padding: 12px 20px;
         }
 
         .fine-print {
-          margin-top: 8px;
-          font-size: 0.75rem;
+          margin-top: 14px;
         }
       }
     </style>
